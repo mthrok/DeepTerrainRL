@@ -1,4 +1,4 @@
-#include "RaptorControllerCacla.h"
+#include "sim/RaptorControllerCacla.hpp"
 
 cRaptorControllerCacla::cRaptorControllerCacla() : cTerrainRLCharController(),
 											cRaptorController(),

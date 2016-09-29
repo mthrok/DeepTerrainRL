@@ -1,5 +1,5 @@
-#include "TerrainRLCharController.h"
-#include "sim/SimCharacter.h"
+#include "sim/TerrainRLCharController.hpp"
+#include "sim/SimCharacter.hpp"
 #include <iostream>
 #include <ctime>
 #include <json/json.h>
@@ -32,7 +32,7 @@ void cTerrainRLCharController::Init(cSimCharacter* character)
 	cNNController::Init(character);
 	mCurrAction.mParams.resize(GetNumParams());
 	ResetParams();
-	
+
 	mGroundSamples = Eigen::VectorXd::Zero(gNumGroundSamples);
 	mPoliState = Eigen::VectorXd::Zero(GetPoliStateSize());
 

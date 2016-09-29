@@ -1,5 +1,5 @@
-#include "CharController.h"
-#include "SimCharacter.h"
+#include "sim/CharController.hpp"
+#include "sim/SimCharacter.hpp"
 
 cCharController::cCharController()
 {

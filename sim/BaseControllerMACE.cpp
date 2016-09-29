@@ -1,4 +1,4 @@
-#include "BaseControllerMACE.h"
+#include "sim/BaseControllerMACE.hpp"
 
 #define ENABLE_BOLTZMANN_EXP
 //#define ENABLE_LAYER_NOISE
@@ -290,8 +290,8 @@ void cBaseControllerMACE::DecideActionBoltzmann(tAction& out_action)
 			mExpCritic = (a != a_max);
 			mIsOffPolicy = mExpActor || mExpCritic;
 		}
-		
-		
+
+
 #if defined(ENABLE_DEBUG_VISUALIZATION)
 		mPoliValLog.Add(val);
 		mVisNNOutput = y;

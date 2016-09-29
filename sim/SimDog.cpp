@@ -1,4 +1,4 @@
-#include "sim/SimDog.h"
+#include "sim/SimDog.hpp"
 #include <iostream>
 
 // bit 0 is used for filtering raytest
@@ -87,7 +87,7 @@ bool cSimDog::HasStumbled() const
 	{
 		cSimDog::eJoint joint_id = static_cast<cSimDog::eJoint>(i);
 
-		if (joint_id != cSimDog::eJointToe 
+		if (joint_id != cSimDog::eJointToe
 			&& joint_id != cSimDog::eJointFinger
 			&& joint_id != cSimDog::eJointAnkle
 			&& joint_id != cSimDog::eJointWrist)

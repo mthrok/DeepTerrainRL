@@ -1,4 +1,4 @@
-#include "SimBox.h"
+#include "sim/SimBox.hpp"
 
 cSimBox::tParams::tParams()
 {
@@ -32,7 +32,7 @@ void cSimBox::Init(std::shared_ptr<cWorld> world, const tParams& params)
 	btRigidBody::btRigidBodyConstructionInfo cons_info(mass, this, mShape.get(), inertia);
 	mBody = std::unique_ptr<btRigidBody>(new btRigidBody(cons_info));
 	mBody->setFriction(static_cast<btScalar>(params.mFriction));
-	
+
 	cSimObj::Init(world);
 	SetPos(params.mPos);
 	SetLinearVelocity(params.mVel);

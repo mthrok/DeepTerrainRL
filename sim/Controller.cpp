@@ -1,6 +1,6 @@
-#include "Controller.h"
-#include "sim/SimCharacter.h"
-#include "util/FileUtil.h"
+#include "sim/Controller.hpp"
+#include "sim/SimCharacter.hpp"
+#include "util/FileUtil.hpp"
 
 cController::cController()
 {

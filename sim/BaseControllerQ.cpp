@@ -1,5 +1,5 @@
-#include "BaseControllerQ.h"
-#include "sim/SimCharacter.h"
+#include "sim/BaseControllerQ.hpp"
+#include "sim/SimCharacter.hpp"
 
 cBaseControllerQ::cBaseControllerQ() : cTerrainRLCharController()
 {

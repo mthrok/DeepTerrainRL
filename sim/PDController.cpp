@@ -1,8 +1,8 @@
-#include "PDController.h"
-#include <iostream>
+#include "sim/PDController.hpp"
+#include "sim/SimCharacter.hpp"
+#include "util/FileUtil.hpp"
 
-#include "sim/SimCharacter.h"
-#include "util/FileUtil.h"
+#include <iostream>
 
 const std::string gPDControllersKey = "PDControllers";
 const std::string gPDParamKeys[cPDController::eParamMax] =
@@ -50,7 +50,7 @@ bool cPDController::LoadParams(const std::string& file, Eigen::MatrixXd& out_buf
 				}
 			}
 		}
-		
+
 	}
 	else
 	{
@@ -103,7 +103,7 @@ void cPDController::Init(cSimCharacter* character, const tParams& params)
 void cPDController::Clear()
 {
 	cController::Clear();
-	
+
 	mParams[eParamJointID] = static_cast<double>(cKinTree::gInvalidJointID);
 	mParams[eParamKp] = 0;
 	mParams[eParamKd] = 0;
@@ -270,7 +270,7 @@ tVector cPDController::CalcTorque() const
 {
 	const cJoint& joint = GetJoint();
 	const tVector& axis_rel = joint.GetAxisRel();
-	
+
 	double kp = mParams[eParamKp];
 	double kd = mParams[eParamKd];
 

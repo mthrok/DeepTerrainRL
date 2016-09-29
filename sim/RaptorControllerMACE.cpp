@@ -1,4 +1,4 @@
-#include "RaptorControllerMACE.h"
+#include "sim/RaptorControllerMACE.hpp"
 
 cRaptorControllerMACE::cRaptorControllerMACE() : cTerrainRLCharController(),
 										cRaptorController(),

@@ -1,4 +1,4 @@
-#include "BaseControllerCacla.h"
+#include "sim/BaseControllerCacla.hpp"
 
 cBaseControllerCacla::cBaseControllerCacla() : cTerrainRLCharController()
 {
@@ -47,7 +47,7 @@ bool cBaseControllerCacla::LoadCriticNet(const std::string& net_file)
 		printf("Network output dimension does not match expected output size (%i vs %i).\n", output_size, critic_output_size);
 		succ = false;
 	}
-	
+
 	if (!succ)
 	{
 		mCriticNet.Clear();
@@ -276,7 +276,7 @@ void cBaseControllerCacla::ApplyExpNoiseAction(tAction& out_action)
 	FetchExpNoiseScale(noise_scale);
 
 	assert(noise_scale.size() == num_opt_params);
-	
+
 	// for debugging
 	Eigen::VectorXd exp_noise = Eigen::VectorXd::Zero(num_opt_params);
 

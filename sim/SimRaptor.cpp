@@ -1,4 +1,4 @@
-#include "sim/SimRaptor.h"
+#include "sim/SimRaptor.hpp"
 #include <iostream>
 
 // bit 0 is used for filtering raytest
@@ -82,7 +82,7 @@ bool cSimRaptor::HasStumbled() const
 	{
 		cSimRaptor::eJoint joint_id = static_cast<cSimRaptor::eJoint>(i);
 
-		if (joint_id != cSimRaptor::eJointRightToe 
+		if (joint_id != cSimRaptor::eJointRightToe
 			&& joint_id != cSimRaptor::eJointLeftToe
 			&& joint_id != cSimRaptor::eJointRightAnkle
 			&& joint_id != cSimRaptor::eJointLeftAnkle)

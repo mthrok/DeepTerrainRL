@@ -1,4 +1,4 @@
-#include "SimCapsule.h"
+#include "sim/SimCapsule.hpp"
 
 cSimCapsule::tParams::tParams()
 {
@@ -24,9 +24,9 @@ void cSimCapsule::Init(std::shared_ptr<cWorld> world, const tParams& params)
 {
 	mType = params.mType;
 	btScalar mass = (params.mType == eTypeDynamic) ? static_cast<btScalar>(params.mMass) : 0;
-	
+
 	mShape = world->BuildCapsuleShape(params.mRadius, params.mHeight);
-	
+
 	btVector3 inertia(0, 0, 0);
 	mShape->calculateLocalInertia(mass, inertia);
 	btRigidBody::btRigidBodyConstructionInfo cons_info(mass, this, mShape.get(), inertia);

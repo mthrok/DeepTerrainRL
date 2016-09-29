@@ -1,4 +1,4 @@
-#include "DogControllerCacla.h"
+#include "sim/DogControllerCacla.hpp"
 
 cDogControllerCacla::cDogControllerCacla() : cTerrainRLCharController(),
 											cDogController(),

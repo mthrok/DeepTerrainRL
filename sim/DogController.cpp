@@ -1,11 +1,12 @@
-#include "DogController.h"
+#include "sim/DogController.hpp"
+#include "sim/SimCharacter.hpp"
+#include "sim/RBDUtil.hpp"
+#include "util/FileUtil.hpp"
+#include "util/Util.hpp"
+
 #include <iostream>
 #include <json/json.h>
 
-#include "sim/SimCharacter.h"
-#include "sim/RBDUtil.h"
-#include "util/FileUtil.h"
-#include "util/Util.h"
 
 //#define DOG_CTRL_PROFILER
 
@@ -145,7 +146,7 @@ const cDogController::tParamInfo gParamInfo[] =
 	{ true, 0, 2 },			//Hip
 	{ true, -10, 0 },		//Knee
 	{ true, 0, 10 },		//Ankle
-	
+
 	//FrontStance
 	{ true, -0.2, 0.1 },	//SpineCurve
 	{ true, -2, 0 },		//Shoulder
@@ -153,7 +154,7 @@ const cDogController::tParamInfo gParamInfo[] =
 	{ true, -2, 2 },		//Hip
 	{ true, -3, 0 },		//Knee
 	{ true, 0, 4 },			//Ankle
-	
+
 	//Gather
 	{ true, -0.2, 0.1 },	//SpineCurve
 	{ true, -3, 0 },		//Shoulder
@@ -194,7 +195,7 @@ void cDogController::Init(cSimCharacter* character, const tVector& gravity, cons
 		mRBDModel->Init(mChar->GetJointMat(), mChar->GetBodyDefs(), mGravity);
 
 		mImpPDCtrl.Init(mChar, mRBDModel, pd_params, mGravity);
-		
+
 		succ = LoadControllers(param_file);
 		TransitionState(eStateBackStance);
 	}
@@ -594,7 +595,7 @@ void cDogController::BuildFromMotion(int ctrl_params_idx, const cMotion& motion)
 double cDogController::CalcReward() const
 {
 	tVector target_vel = GetTargetVel();
-	
+
 	const double vel_reward_w = 0.8;
 	double vel_reward = 0;
 	const double stumble_reward_w = 0.2;
@@ -614,7 +615,7 @@ double cDogController::CalcReward() const
 		double stumble_gamma = 10;
 		stumble_reward = 1.0 / (1 + stumble_gamma * avg_stumble);
 	}
-	
+
 	double reward = 0;
 	reward += vel_reward_w * vel_reward
 			+ stumble_reward_w * stumble_reward;
@@ -683,7 +684,7 @@ bool cDogController::LoadControllers(const std::string& file)
 bool cDogController::ParseControllers(const Json::Value& root)
 {
 	bool succ = true;
-	
+
 	if (!root[gFilesKey].isNull())
 	{
 		succ &= ParseControllerFiles(root[gFilesKey]);
@@ -880,7 +881,7 @@ void cDogController::UpdateRBDModel()
 
 	mRBDModel->Update(pose, vel);
 	cRBDUtil::BuildJacobian(*mRBDModel.get(), mJacobian);
-	
+
 #if defined(DOG_CTRL_PROFILER)
 	TIMER_PRINT_END(Update_RBD_Model)
 #endif
@@ -915,7 +916,7 @@ void cDogController::ApplyFeedback()
 		cSimDog::eJointFinger
 	};
 
-	const eStateParam params[] = 
+	const eStateParam params[] =
 	{
 		eStateParamHip,
 		eStateParamShoulder
@@ -929,14 +930,14 @@ void cDogController::ApplyFeedback()
 		cSimDog::eJoint joint_id = joints[j];
 		cSimDog::eJoint eff_id = end_effectors[j];
 		const auto& body_part = mChar->GetBodyPart(eff_id);
-		
+
 		bool contact = body_part->IsInContact();
 		if (!contact)
 		{
 			double vel_gain = GetCv();
 			eStateParam param_id = params[j];
 			double delta_theta = com_vel[0] * vel_gain;
-			
+
 			double default_theta = GetCurrParams()[param_id];
 			double corrected_theta = default_theta + delta_theta;
 			mImpPDCtrl.SetTargetTheta(joint_id, corrected_theta);
@@ -960,7 +961,7 @@ void cDogController::ApplyGravityCompensation(Eigen::VectorXd& out_tau)
 
 	bool has_support = false;
 	Eigen::MatrixXd contact_basis = BuildContactBasis(pose, has_support);
-	
+
 	if (has_support)
 	{
 		Eigen::VectorXd tau_g;
@@ -1000,11 +1001,11 @@ void cDogController::ApplyVirtualForces(Eigen::VectorXd& out_tau)
 	{
 		cSimDog::eJoint joint_id = gEndEffectors[e];
 		bool active_effector = IsActiveVFEffector(joint_id);
-		
+
 		if (active_effector)
 		{
 			tVector vf = -GetEffectorVF(joint_id);
-			
+
 			tVector pos = GetEndEffectorContactPos(joint_id);
 			cSpAlg::tSpTrans joint_world_trans = cSpAlg::BuildTrans(-pos);
 
@@ -1124,7 +1125,7 @@ Eigen::MatrixXd cDogController::BuildContactBasis(const Eigen::VectorXd& pose, b
 	const int cols = gNumEndEffectors * num_basis;
 
 	const Eigen::Matrix<double, 6, num_basis> force_svs
-		((Eigen::Matrix<double, 6, num_basis>() << 
+		((Eigen::Matrix<double, 6, num_basis>() <<
 			0, 0,
 			0, 0,
 			0, 0,

@@ -1,4 +1,4 @@
-#include "RBDUtil.h"
+#include "sim/RBDUtil.hpp"
 #include <iostream>
 
 void cRBDUtil::SolveInvDyna(const cRBDModel& model, const Eigen::VectorXd& acc, Eigen::VectorXd& out_tau)
@@ -56,7 +56,7 @@ void cRBDUtil::SolveInvDyna(const cRBDModel& model, const Eigen::VectorXd& acc, 
 			cSpAlg::tSpVec curr_vel = cSpAlg::ApplyTransM(parent_child_trans, vel_p) + vj;
 			cSpAlg::tSpVec curr_acc = cSpAlg::ApplyTransM(parent_child_trans, acc_p) + S * ddq + cj + cSpAlg::CrossM(curr_vel, vj);
 			cSpAlg::tSpVec curr_f = I * curr_acc + cSpAlg::CrossF(curr_vel, I * curr_vel);
-			
+
 			vels.row(j) = curr_vel;
 			accs.row(j) = curr_acc;
 			fs.row(j) = curr_f;
@@ -180,7 +180,7 @@ void cRBDUtil::BuildEndEffectorJacobian(const cRBDModel& model, int joint_id, Ei
 	// jacobian in world coordinates
 	const Eigen::MatrixXd& joint_mat = model.GetJointMat();
 	const Eigen::VectorXd& pose = model.GetPose();
-	
+
 	int num_dofs = cKinTree::GetNumDof(joint_mat);
 	out_J = Eigen::MatrixXd::Zero(cSpAlg::gSpVecSize, num_dofs);
 
@@ -240,7 +240,7 @@ Eigen::MatrixXd cRBDUtil::MultJacobianEndEff(const Eigen::MatrixXd& joint_mat, c
 		int size = cKinTree::GetParamSize(joint_mat, curr_id);
 		const auto curr_q = cKinTree::GetJointParams(joint_mat, q, curr_id);
 		const auto curr_J = J.block(0, offset, cSpAlg::gSpVecSize, size);
-		
+
 		joint_vel += curr_J * curr_q;
 		curr_id = cKinTree::GetParent(joint_mat, curr_id);
 	}
@@ -328,7 +328,7 @@ void cRBDUtil::BuildCOMJacobian(const cRBDModel& model, const Eigen::MatrixXd& J
 			{
 				int offset = cKinTree::GetParamOffset(joint_mat, curr_id);
 				int size = cKinTree::GetParamSize(joint_mat, curr_id);
-				
+
 				const Eigen::MatrixXd& J_block = J.block(0, offset, cSpAlg::gSpVecSize, size);
 				auto J_com_block = out_J.block(0, offset, cSpAlg::gSpVecSize, size);
 				J_com_block += mass_frac * cSpAlg::ApplyTransM(body_pos_trans, J_block);
@@ -392,7 +392,7 @@ cSpAlg::tSpVec cRBDUtil::BuildCOMVelProdAccAux(const cRBDModel& model, const Eig
 	// coord frame origin at com
 	int num_dofs = cKinTree::GetNumDof(joint_mat);
 	int num_joints = cKinTree::GetNumJoints(joint_mat);
-	
+
 	double total_mass = cKinTree::CalcTotalMass(body_defs);
 	cSpAlg::tSpVec com_vpa = cSpAlg::tSpVec::Zero();
 	for (int j = 0; j < num_joints; ++j)
@@ -749,7 +749,7 @@ Eigen::MatrixXd cRBDUtil::BuildJointSubspacePlanar(const Eigen::MatrixXd& joint_
 	{
 		double theta = cKinTree::GetJointTheta(joint_mat, pose, j);
 		tMatrix E = cMathUtil::RotateMat(tVector(0, 0, 1, 0), -theta);
-		
+
 		S.block(3, 0, 2, 2) = E.block(0, 0, 2, 2);
 		S(2, 2) = 1;
 	}

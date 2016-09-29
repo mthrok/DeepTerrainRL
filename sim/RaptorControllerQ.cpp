@@ -1,7 +1,7 @@
-#include "RaptorControllerQ.h"
+#include "sim/RaptorControllerQ.hpp"
 
 cRaptorControllerQ::cRaptorControllerQ() : cTerrainRLCharController(),
-									cRaptorController(), 
+									cRaptorController(),
 									cBaseControllerQ()
 {
 }

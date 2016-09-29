@@ -1,7 +1,7 @@
-#include "RBDModel.h"
-#include "RBDUtil.h"
-#include "anim/KinTree.h"
-#include "util/Util.h"
+#include "util/Util.hpp"
+#include "anim/KinTree.hpp"
+#include "sim/RBDModel.hpp"
+#include "sim/RBDUtil.hpp"
 
 //#define ENABLE_RBD_PROFILER
 

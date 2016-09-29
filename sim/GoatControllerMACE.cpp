@@ -1,4 +1,4 @@
-#include "GoatControllerMACE.h"
+#include "sim/GoatControllerMACE.hpp"
 
 cGoatControllerMACE::cGoatControllerMACE()
 {

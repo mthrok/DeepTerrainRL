@@ -1,4 +1,4 @@
-#include "NNController.h"
+#include "sim/NNController.hpp"
 
 cNNController::cNNController()
 {

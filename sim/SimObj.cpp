@@ -1,4 +1,4 @@
-#include "SimObj.h"
+#include "sim/SimObj.hpp"
 
 cSimObj::cSimObj()
 	: mWorld(nullptr)

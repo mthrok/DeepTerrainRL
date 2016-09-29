@@ -1,11 +1,12 @@
-#include "RaptorController.h"
+#include "util/FileUtil.hpp"
+#include "sim/RaptorController.hpp"
+#include "sim/SimCharacter.hpp"
+#include "sim/RBDUtil.hpp"
+
 #include <iostream>
 #include <ctime>
 #include <json/json.h>
 
-#include "sim/SimCharacter.h"
-#include "sim/RBDUtil.h"
-#include "util/FileUtil.h"
 
 const cRaptorController::eStance gDefaultStance = cRaptorController::eStanceRight;
 const cRaptorController::tStateDef gStateDefs[cRaptorController::eStateMax] =
@@ -155,7 +156,7 @@ void cRaptorController::Init(cSimCharacter* character, const tVector& gravity, c
 		mRBDModel->Init(mChar->GetJointMat(), mChar->GetBodyDefs(), mGravity);
 
 		mImpPDCtrl.Init(mChar, mRBDModel, pd_params, mGravity);
-		
+
 		succ = LoadControllers(param_file);
 		TransitionState(eStateContact);
 	}
@@ -203,7 +204,7 @@ void cRaptorController::Update(double time_step)
 	{
 		mCurrCycleTime += time_step;
 		UpdateStumbleCounter(time_step);
-		
+
 		UpdateRBDModel();
 		UpdateState(time_step);
 		UpdateStanceHip();
@@ -216,7 +217,7 @@ void cRaptorController::Update(double time_step)
 		{
 			ApplyGravityCompensation(tau);
 		}
-		
+
 		ApplyStanceFeedback(tau);
 
 		if (mEnableVirtualForces)
@@ -363,7 +364,7 @@ int cRaptorController::GetNumOptParams() const
 {
 	int num_params = GetNumParams();
 	assert(gNumOptParamMasks == num_params);
-	
+
 	int num_opt_params = 0;
 	for (int i = 0; i < num_params; ++i)
 	{
@@ -561,7 +562,7 @@ void cRaptorController::BuildFromMotion(int ctrl_params_idx, const cMotion& moti
 double cRaptorController::CalcReward() const
 {
 	tVector target_vel = GetTargetVel();
-	
+
 	const double vel_reward_w = 0.8;
 	double vel_reward = 0;
 	const double stumble_reward_w = 0.2;
@@ -587,7 +588,7 @@ double cRaptorController::CalcReward() const
 			stumble_reward = 0;
 		}
 	}
-	
+
 	double reward = 0;
 	reward += vel_reward_w * vel_reward
 			+ stumble_reward_w * stumble_reward;
@@ -665,7 +666,7 @@ void cRaptorController::ResetParams()
 	cTerrainRLCharController::ResetParams();
 	mState = eStateContact;
 	mStance = gDefaultStance;
-	
+
 	mPrevCycleTime = 0;
 	mPrevDistTraveled.setZero();
 	mCurrCycleTime = 0;
@@ -677,7 +678,7 @@ void cRaptorController::ResetParams()
 bool cRaptorController::ParseControllers(const Json::Value& root)
 {
 	bool succ = true;
-	
+
 	if (!root[gFilesKey].isNull())
 	{
 		succ &= ParseControllerFiles(root[gFilesKey]);
@@ -831,7 +832,7 @@ void cRaptorController::UpdateState(double time_step)
 	{
 		eState next_state = (mFirstCycle) ? eStateContact : state.mNext;
 		bool end_step = (next_state == eStateInvalid) || mFirstCycle;
-		
+
 		if (end_step)
 		{
 			if (!mFirstCycle)
@@ -940,7 +941,7 @@ void cRaptorController::ApplyStanceFeedback(Eigen::VectorXd& out_tau)
 	int stance_hip_id = GetStanceHip();
 	int swing_hip_id = GetSwingHip();
 
-	const int root_joints[] = 
+	const int root_joints[] =
 	{
 		cSimRaptor::eJointRightHip,
 		cSimRaptor::eJointLeftHip,
@@ -963,7 +964,7 @@ void cRaptorController::ApplyStanceFeedback(Eigen::VectorXd& out_tau)
 				hip_tau += -curr_tau;
 			}
 		}
-		
+
 		double target_root_pitch = GetTargetRootPitch();
 		double root_pitch = GetRootPitch();
 		double root_omega = mChar->GetRootAngVel()[2];
@@ -994,7 +995,7 @@ void cRaptorController::ApplyGravityCompensation(Eigen::VectorXd& out_tau)
 
 	bool has_support = false;
 	Eigen::MatrixXd contact_basis = BuildContactBasis(pose, has_support);
-	
+
 	if (has_support)
 	{
 		Eigen::VectorXd tau_g;
@@ -1033,7 +1034,7 @@ void cRaptorController::ApplyVirtualForces(Eigen::VectorXd& out_tau)
 	{
 		cSimRaptor::eJoint joint_id = gEndEffectors[e];
 		bool active_effector = IsActiveVFEffector(joint_id);
-		
+
 		int stance_hip_id = GetStanceHip();
 		int swing_hip_id = GetSwingHip();
 		int root_id = mChar->GetRootID();
@@ -1041,7 +1042,7 @@ void cRaptorController::ApplyVirtualForces(Eigen::VectorXd& out_tau)
 		if (active_effector)
 		{
 			tVector vf = -GetEffectorVF();
-			
+
 			tVector pos = GetEndEffectorContactPos(joint_id);
 			cSpAlg::tSpTrans joint_world_trans = cSpAlg::BuildTrans(-pos);
 
@@ -1178,7 +1179,7 @@ Eigen::MatrixXd cRaptorController::BuildContactBasis(const Eigen::VectorXd& pose
 	double c = std::cos(cone_theta);
 
 	const Eigen::Matrix<double, 6, num_basis> force_svs
-		((Eigen::Matrix<double, 6, num_basis>() << 
+		((Eigen::Matrix<double, 6, num_basis>() <<
 			0, 0,
 			0, 0,
 			0, 0,
@@ -1247,7 +1248,7 @@ void cRaptorController::GetOptParams(const Eigen::VectorXd& ctrl_params, Eigen::
 	assert(gNumOptParamMasks == num_params);
 
 	out_opt_params.resize(num_opt_params);
-	
+
 	int opt_idx = 0;
 	for (int i = 0; i < num_params; ++i)
 	{
@@ -1319,7 +1320,7 @@ void cRaptorController::BuildStateParamsFromPose(const Eigen::VectorXd& pose, tS
 	const int num_ctrl_joints = sizeof(ctrl_joints) / sizeof(ctrl_joints[0]);
 
 	const Eigen::MatrixXd& joint_mat = mChar->GetJointMat();
-	
+
 	double root_theta = cKinTree::GetRootTheta(joint_mat, pose);
 	out_params(eStateParamRootPitch) = root_theta;
 	out_params(eStateParamSpineCurve) = CalcSpineCurve(pose);

@@ -1,4 +1,4 @@
-#include "TerrainGen2D.h"
+#include "sim/TerrainGen2D.hpp"
 #include <algorithm>
 
 const float cTerrainGen2D::gVertSpacing = 0.1f;
@@ -350,7 +350,7 @@ double cTerrainGen2D::BuildNarrowGaps(double width, const tParams& params, cRand
 			spacing = rand.RandDouble(dist_min, dist_max);
 		}
 	}
-	
+
 	return total_w;
 }
 

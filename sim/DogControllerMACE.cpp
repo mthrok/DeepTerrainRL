@@ -1,4 +1,4 @@
-#include "DogControllerMACE.h"
+#include "sim/DogControllerMACE.hpp"
 
 cDogControllerMACE::cDogControllerMACE() : cTerrainRLCharController(),
 										cDogController(),

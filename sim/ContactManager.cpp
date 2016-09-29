@@ -1,6 +1,6 @@
-#include "ContactManager.h"
-#include "sim/World.h"
-#include "SimObj.h"
+#include "sim/ContactManager.hpp"
+#include "sim/World.hpp"
+#include "sim/SimObj.hpp"
 #include <iostream>
 
 const int cContactManager::gInvalidID = -1;
@@ -80,7 +80,7 @@ void cContactManager::Update()
 
 				const tContactHandle& h0 = sim_obj0->GetContactHandle();
 				const tContactHandle& h1 = sim_obj1->GetContactHandle();
-			
+
 				bool valid_contact = IsValidContact(h0, h1);
 				if (valid_contact)
 				{

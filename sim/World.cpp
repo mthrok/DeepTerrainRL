@@ -1,13 +1,13 @@
-#include "World.h"
+#include "sim/World.hpp"
+#include "sim/SimObj.hpp"
+#include "sim/SimBox.hpp"
+#include "sim/SimCapsule.hpp"
+#include "sim/SimPlane.hpp"
+#include "sim/Joint.hpp"
 
 #include "BulletCollision/Gimpact/btGImpactCollisionAlgorithm.h"
 #include "BulletDynamics/MLCPSolvers/btDantzigSolver.h"
 #include "BulletDynamics/MLCPSolvers/btMLCPSolver.h"
-#include "sim/SimObj.h"
-#include "sim/SimBox.h"
-#include "sim/SimCapsule.h"
-#include "sim/SimPlane.h"
-#include "sim/Joint.h"
 
 cWorld::tParams::tParams()
 {

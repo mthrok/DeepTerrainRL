@@ -1,4 +1,4 @@
-#include "Joint.h"
+#include "sim/Joint.hpp"
 #include <iostream>
 
 const double gDefaultTorqueLimit = std::numeric_limits<double>::infinity();
@@ -130,7 +130,7 @@ tVector cJoint::CalcJointVel() const
 	{
 		ang_velp = mParent->GetAngularVelocity();
 	}
-	
+
 	tVector ang_velc = mChild->GetAngularVelocity();
 
 	tVector joint_vel = ang_velc - ang_velp;

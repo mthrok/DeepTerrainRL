@@ -1,4 +1,4 @@
-#include "SpAlg.h"
+#include "sim/SpAlg.hpp"
 #include <iostream>
 
 #ifdef _LINUX_

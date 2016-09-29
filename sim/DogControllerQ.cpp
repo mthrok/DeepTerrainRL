@@ -1,7 +1,7 @@
-#include "DogControllerQ.h"
+#include "sim/DogControllerQ.hpp"
 
 cDogControllerQ::cDogControllerQ() : cTerrainRLCharController(),
-									cDogController(), 
+									cDogController(),
 									cBaseControllerQ()
 {
 }

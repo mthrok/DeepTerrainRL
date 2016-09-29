@@ -1,8 +1,7 @@
-#include "SimCharacter.h"
+#include "sim/SimCharacter.hpp"
+#include "sim/SimBox.hpp"
+#include "sim/SimCapsule.hpp"
 #include <iostream>
-
-#include "SimBox.h"
-#include "SimCapsule.h"
 
 cSimCharacter::tParams::tParams()
 {
@@ -79,7 +78,7 @@ void cSimCharacter::Reset()
 	{
 		mController->Reset();
 	}
-	
+
 	ClearJointTorques();
 
 #if defined(ENABLE_TRAINING)
@@ -119,7 +118,7 @@ void cSimCharacter::GetRootRotation(tVector& out_axis, double& out_theta) const
 {
 	int root_id = GetRootID();
 	const std::shared_ptr<cSimObj>& root = mBodyParts[root_id];
-	
+
 	tMatrix3 root_rot_mat = root->GetLocalToWorldRotMat();
 
 	tMatrix rot_mat = tMatrix::Identity();
@@ -281,7 +280,7 @@ void cSimCharacter::SetVel(const Eigen::VectorXd& vel)
 					// convert spatial vector to world coordinates
 					tVector joint_pos = CalcJointPos(curr_id);
 					Eigen::Vector3d r = E_inv * -Eigen::Vector3d(joint_pos[0], joint_pos[1], joint_pos[2]);
-					
+
 					Eigen::Vector3d curr_omega = E * local_omega;
 					Eigen::Vector3d curr_vel = E * (-r.cross(local_omega) + local_vel);
 
@@ -318,7 +317,7 @@ tVector cSimCharacter::CalcJointPos(int joint_id) const
 {
 	const cJoint& joint = mJoints[joint_id];
 	tVector pos;
-	
+
 	if (joint.IsValid())
 	{
 		pos = joint.GetPos();
@@ -871,7 +870,7 @@ void cSimCharacter::BuildConstraints(cWorld::ePlaneCons plane_cons)
 				curr_joint.SetTorqueLimit(torque_lim);
 			}
 		}
-		
+
 		if (valid_part)
 		{
 			tVector linear_factor;
@@ -970,7 +969,7 @@ void cSimCharacter::ClearJointTorques()
 		{
 			joint.ClearTorque();
 		}
-		
+
 	}
 }
 

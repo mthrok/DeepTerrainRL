@@ -1,5 +1,5 @@
-#include "CharTracer.h"
-#include "render/DrawUtil.h"
+#include "sim/CharTracer.hpp"
+#include "render/DrawUtil.hpp"
 
 const int gNumEndEffMarkers = 4;
 const double gMarkerSize = 0.075;
@@ -39,7 +39,7 @@ bool cCharTracer::tParams::IsValid() const
 			}
 		}
 	}
-	
+
 	return valid;
 }
 
@@ -79,7 +79,7 @@ void cCharTracer::Update(double time_step)
 void cCharTracer::Reset()
 {
 	ResetTimer();
-	
+
 	for (int i = 0; i < GetNumTraces(); ++i)
 	{
 		ResetTrace(mTraces[i]);
@@ -155,7 +155,7 @@ void cCharTracer::ResetTrace(tTrace& out_trace) const
 {
 	out_trace.mPosTraj.Clear();
 	out_trace.mEndEffPos.Clear();
-	
+
 	for (size_t e = 0; e < out_trace.mEndContact.size(); ++e)
 	{
 		out_trace.mEndContact[e] = false;

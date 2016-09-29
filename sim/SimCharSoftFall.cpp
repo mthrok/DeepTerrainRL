@@ -1,4 +1,4 @@
-#include "sim/SimCharSoftFall.h"
+#include "sim/SimCharSoftFall.hpp"
 
 const double gFallDistCheckPeriod = 5;
 const double gFallContactCheckPeriod = 0.1;

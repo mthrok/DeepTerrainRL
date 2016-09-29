@@ -1,9 +1,9 @@
-#include "ImpPDController.h"
+#include "util/Util.hpp"
+#include "sim/SimCharacter.hpp"
+#include "sim/RBDUtil.hpp"
+#include "sim/ImpPDController.hpp"
 #include <iostream>
 
-#include "util/Util.h"
-#include "sim/SimCharacter.h"
-#include "sim/RBDUtil.h"
 
 cImpPDController::cImpPDController()
 {
@@ -263,7 +263,7 @@ void cImpPDController::CalcControlForces(double time_step, Eigen::VectorXd& out_
 	const Eigen::VectorXd& vel = mRBDModel->GetVel();
 	Eigen::VectorXd acc;
 	acc = Kp_mat * (pose_err - t * vel) + Kd_mat * vel_err - C;
-	
+
 #if defined(IMP_PD_CTRL_PROFILER)
 	TIMER_RECORD_BEG(Solve)
 #endif
@@ -273,7 +273,7 @@ void cImpPDController::CalcControlForces(double time_step, Eigen::VectorXd& out_
 #if defined(IMP_PD_CTRL_PROFILER)
 	TIMER_RECORD_END(Solve, mPerfSolveTime, mPerfSolveCount)
 #endif
-	
+
 	out_tau = Kp_mat * (pose_err - t * vel) + Kd_mat * (vel_err - t * acc);
 }
 

@@ -1,4 +1,4 @@
-#include "GroundVar2D.h"
+#include "sim/GroundVar2D.hpp"
 #include <BulletCollision/CollisionShapes/btHeightfieldTerrainShape.h>
 #include <time.h>
 #include <iostream>
@@ -61,7 +61,7 @@ void cGroundVar2D::Update(const tVector& bound_min, const tVector& bound_max)
 		double seg_max_x = 0;
 		eAlignMode align_mode = eAlignMin;
 		tVector fix_point = tVector::Zero();
-		
+
 		if (bound_max[0] >= max_x)
 		{
 			seg_id = GetSegID(0);
@@ -162,7 +162,7 @@ tVector cGroundVar2D::GetVertex(int i, int j) const
 		i -= min_grid_width;
 		++i;
 	}
-	
+
 	const auto& seg = GetSegment(seg_idx);
 	tVector vert = seg->GetVertex(i, j);
 	return vert;
@@ -245,7 +245,7 @@ void cGroundVar2D::InitSegments(const tVector& bound_min, const tVector& bound_m
 	for (int i = 0; i < gNumSegments; ++i)
 	{
 		int seg_id = GetSegID(i);
-		
+
 		tVector fix_point = tVector::Zero();
 		eAlignMode align_mode = GetSegAlignMode(i);
 		double w = mParams.mSegmentWidth;
@@ -328,14 +328,14 @@ void cGroundVar2D::BuildSegment(int seg_id, double bound_min, double bound_max,
 	{
 		end_h = (align_mode == eAlignMin) ? seg->mData[0] : seg->mData[num_verts - 1];
 	}
-	
+
 	float h_offset = static_cast<float>(fix_point[1] - end_h);
 	for (int i = 0; i < num_verts; ++i)
 	{
 		seg->mData[i] += h_offset;
 	}
 
-	double new_bound_min = (align_mode == eAlignMin) ? 
+	double new_bound_min = (align_mode == eAlignMin) ?
 							(bound_min) :
 							(bound_max - (num_verts - 1) * tSegment::gGridSpacingX);
 	seg->Init(mWorld, new_bound_min, mParams.mFriction);
@@ -402,7 +402,7 @@ void cGroundVar2D::tSegment::Init(std::shared_ptr<cWorld> world, double min_x, d
 
 	int grid_width = static_cast<int>(mData.size());
 	int grid_length = GetGridLength();
-	
+
 	mMinX = min_x;
 
 	tVector aabb_min = tVector::Zero();
@@ -439,14 +439,14 @@ void cGroundVar2D::tSegment::Init(std::shared_ptr<cWorld> world, double min_x, d
 	bool flip_quad_edges = false;
 	btHeightfieldTerrainShape* height_field = new btHeightfieldTerrainShape(grid_width, grid_length, mData.data(), static_cast<btScalar>(height_scale),
 		static_cast<btScalar>(min_height), static_cast<btScalar>(max_height), up_axis, data_type, flip_quad_edges);
-	
+
 	height_field->setLocalScaling(btVector3(static_cast<btScalar>(x_scale), 1, static_cast<btScalar>(z_scale)));
 	mShape = std::unique_ptr<btCollisionShape>(height_field);
 
 	btRigidBody::btRigidBodyConstructionInfo cons_info(0, this, mShape.get(), btVector3(0, 0, 0));
 	mBody = std::unique_ptr<btRigidBody>(new btRigidBody(cons_info));
 	mBody->setFriction(static_cast<btScalar>(friction));
-	
+
 	tVector origin = 0.5 * (aabb_min + aabb_max);
 
 	cSimObj::Init(world);
@@ -571,7 +571,7 @@ double cGroundVar2D::tSegment::SampleHeight(const tVector& pos, bool& out_valid_
 	tVector a = GetVertex(i, 0);
 	tVector b = GetVertex(j, 0);
 	h = (1 - lerp) * a[1] + lerp * b[1];
-	
+
 	return h;
 }
 

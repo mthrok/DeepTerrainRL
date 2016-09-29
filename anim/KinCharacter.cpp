@@ -1,4 +1,4 @@
-#include "KinCharacter.h"
+#include "anim/KinCharacter.hpp"
 #include <assert.h>
 
 const double gDiffTimeStep = 1 / 60.0;
@@ -26,7 +26,7 @@ bool cKinCharacter::Init(const std::string& char_file, const std::string& motion
 		}
 		succ &= succ_motion;
 	}
-	
+
 
 	return succ;
 }
@@ -183,7 +183,7 @@ void cKinCharacter::MoveOrigin(const tVector& delta)
 }
 
 void cKinCharacter::ResetParams()
-{ 
+{
 	cCharacter::ResetParams();
 	mTime = 0;
 }

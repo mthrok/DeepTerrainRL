@@ -1,8 +1,8 @@
-#include "Motion.h"
+#include "anim/Motion.hpp"
+#include "util/FileUtil.hpp"
+
 #include <assert.h>
 #include <iostream>
-
-#include "util/FileUtil.h"
 
 const double gMinTime = 0;
 
@@ -30,7 +30,7 @@ void cMotion::Clear()
 bool cMotion::Load(const std::string& file)
 {
 	Clear();
-	
+
 	std::ifstream f_stream(file);
 	Json::Value root;
 	Json::Reader reader;
@@ -89,7 +89,7 @@ cMotion::tFrame cMotion::BlendFrames(int a, int b, double lerp) const
 	lerp = cMathUtil::Saturate(lerp);
 
 	// remove time params
-	tFrame frame0 = GetFrame(a); 
+	tFrame frame0 = GetFrame(a);
 	tFrame frame1 = GetFrame(b);
 
 	tFrame frame = (1 - lerp) * frame0 + lerp * frame1;
@@ -122,7 +122,7 @@ bool cMotion::LoadJson(const Json::Value& root)
 			Json::Value frames = motion.get(gFrameKey, 0);
 			assert(frames.isArray());
 			int num_frames = frames.size();
-			
+
 			int data_size = 0;
 			if (num_frames > 0)
 			{

@@ -1,7 +1,8 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_ANIM_KINCHARACTER_H_
+#define _DEEP_TERRAIN_RL_ANIM_KINCHARACTER_H_
 
-#include "Character.h"
-#include "Motion.h"
+#include "Character.hpp"
+#include "anim/Motion.hpp"
 
 class cKinCharacter : public cCharacter
 {
@@ -29,7 +30,7 @@ public:
 	virtual void BuildPose0(Eigen::VectorXd& out_pose) const;
 	virtual void SetPose(const Eigen::VectorXd& pose);
 	virtual void SetPose0(const Eigen::VectorXd& pose);
-	
+
 	virtual bool HasMotion() const;
 
 	virtual tVector GetRootPos() const;
@@ -50,3 +51,5 @@ protected:
 	virtual bool LoadMotion(const std::string& motion_file);
 	virtual tVector CalcCycleRootDelta() const;
 };
+
+#endif

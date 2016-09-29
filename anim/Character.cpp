@@ -1,9 +1,9 @@
-#include "Character.h"
+#include "anim/Character.hpp"
+#include "util/FileUtil.hpp"
+#include "util/JsonUtil.hpp"
+
 #include <assert.h>
 #include <json/json.h>
-
-#include "util/FileUtil.h"
-#include "util/JsonUtil.h"
 
 // Json keys
 const std::string gSkeletonKey = "Skeleton";

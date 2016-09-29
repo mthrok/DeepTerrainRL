@@ -1,16 +1,15 @@
-#include "KinTree.h"
+#include "anim/KinTree.hpp"
+#include "util/FileUtil.hpp"
+#include "sim/RBDUtil.hpp"
 
 #include <iostream>
-
-#include "util/FileUtil.h"
-#include "sim/RBDUtil.h"
 
 const int cKinTree::gPosDims = 2;
 const int cKinTree::gInvalidJointID = -1;
 
 // Json keys
 const std::string gJointsKey = "Joints";
-const std::string gJointDescKeys[cKinTree::eJointDescMax] = 
+const std::string gJointDescKeys[cKinTree::eJointDescMax] =
 {
 	"Type",
 	"Parent",
@@ -113,7 +112,7 @@ bool cKinTree::LoadBodyDefs(const std::string& char_file, Eigen::MatrixXd& out_b
 {
 	bool succ = true;
 	std::string str;
-	
+
 	std::ifstream f_stream(char_file.c_str());
 	Json::Value root;
 	Json::Reader reader;
@@ -148,7 +147,7 @@ bool cKinTree::LoadBodyDefs(const std::string& char_file, Eigen::MatrixXd& out_b
 			}
 		}
 	}
-	
+
 	if (!succ)
 	{
 		printf("Failed to load body definition from %s\n", char_file.c_str());
@@ -288,7 +287,7 @@ tVector cKinTree::CalcBodyPartPos(const Eigen::MatrixXd& joint_mat, const Eigen:
 	assert(IsValidBody(body_defs, part_id));
 	tMatrix body_joint_trans = BodyJointTrans(body_defs, part_id);
 	tMatrix joint_to_world_trans = JointWorldTrans(joint_mat, state, part_id);
-	
+
 	tVector attach_pt = tVector(0, 0, 0, 1);
 	attach_pt = joint_to_world_trans * (body_joint_trans * attach_pt);
 	return attach_pt;
@@ -416,7 +415,7 @@ bool cKinTree::Load(const Json::Value& root, Eigen::MatrixXd& out_joint_mat)
 		int num_joints = joints.size();
 
 		out_joint_mat.resize(num_joints, eJointDescMax);
-		
+
 		for (int j = 0; j < num_joints; ++j)
 		{
 			tJointDesc curr_joint_desc = tJointDesc::Zero();
@@ -835,7 +834,7 @@ tVector cKinTree::GetJointOffset(const Eigen::MatrixXd& joint_mat, const Eigen::
 		assert(false); // unsupported joint
 		break;
 	}
-	
+
 	return offset;
 }
 
@@ -993,7 +992,7 @@ bool cKinTree::ParseJoint(const Json::Value& root, tJointDesc& out_joint_desc)
 	out_joint_desc(eJointDescScale) = 1;
 	out_joint_desc(eJointDescLimLow) = 1;
 	out_joint_desc(eJointDescLimHigh) = 0;
-	
+
 	for (int i = 0; i < eJointDescMax; ++i)
 	{
 		const std::string& key = gJointDescKeys[i];
@@ -1043,7 +1042,7 @@ tMatrix cKinTree::ChildParentTrans(const Eigen::MatrixXd& joint_mat, const Eigen
 	default:
 		break;
 	}
-	
+
 	return mat;
 }
 
@@ -1118,7 +1117,7 @@ tMatrix cKinTree::ChildParentTransRevolute(const Eigen::MatrixXd& joint_mat, con
 {
 	tVector attach_pt = GetScaledAttachPt(joint_mat, joint_id);
 	double theta = GetJointTheta(joint_mat, state, joint_id);
-	
+
 	tMatrix R = cMathUtil::RotateMat(tVector(0, 0, 1, 0), theta);
 	tMatrix T = cMathUtil::TranslateMat(attach_pt);
 	tMatrix mat = T * R;
@@ -1136,7 +1135,7 @@ tMatrix cKinTree::ChildParentTransPlanar(const Eigen::MatrixXd& joint_mat, const
 	tMatrix T0 = cMathUtil::TranslateMat(attach_pt);
 	tMatrix T1 = cMathUtil::TranslateMat(offset);
 
-	tMatrix mat; 
+	tMatrix mat;
 	if (is_root)
 	{
 		mat = T0 * T1 * R;

@@ -16,4 +16,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 AUX_SOURCE_DIRECTORY(util UTIL_SOURCES)
 add_library(Util ${UTIL_SOURCES})
 
+# Anim Module
+AUX_SOURCE_DIRECTORY(anim ANIM_SOURCES)
+add_library(Anim ${ANIM_SOURCES})
+
 include_directories(${PROJECT_SOURCE_DIR})

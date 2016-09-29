@@ -1,7 +1,8 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_ANIM_MOTION_H_
+#define _DEEP_TERRAIN_RL_ANIM_MOTION_H_
 
 #include <json/json.h>
-#include "KinTree.h"
+#include "anim/KinTree.hpp"
 
 class cMotion
 {
@@ -43,3 +44,5 @@ protected:
 	virtual void PostProcessFrames(Eigen::MatrixXd& frames) const;
 	virtual int GetFrameSize() const;
 };
+
+#endif

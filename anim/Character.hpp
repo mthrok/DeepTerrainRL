@@ -1,6 +1,7 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_ANIM_CHARACTER_H_
+#define _DEEP_TERRAIN_RL_ANIM_CHARACTER_H_
 
-#include "KinTree.h"
+#include "anim/KinTree.hpp"
 
 class cCharacter
 {
@@ -61,3 +62,5 @@ protected:
 	virtual bool ParseState(const Json::Value& root, Eigen::VectorXd& out_state) const;
 	virtual std::string BuildStateJson(const Eigen::VectorXd& pose, const Eigen::VectorXd& vel) const;
 };
+
+#endif

@@ -1,10 +1,11 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_ANIM_KINTREE_H_
+#define _DEEP_TERRAIN_RL_ANIM_KINTREE_H_
 
 #include <vector>
 #include <fstream>
 #include <json/json.h>
 
-#include "util/MathUtil.h"
+#include "util/MathUtil.hpp"
 #define DISABLE_LINK_SCALE
 
 class cKinTree
@@ -132,12 +133,12 @@ public:
 	// calculates the longest chain in the subtree of each joint
 	static void CalcMaxSubChainLengths(const Eigen::MatrixXd& joint_mat, Eigen::VectorXd& out_lengths);
 	static void CalcSubTreeMasses(const Eigen::MatrixXd& joint_mat, const Eigen::MatrixXd& body_defs, Eigen::VectorXd& out_masses);
-	
+
 	static tMatrix ChildParentTrans(const Eigen::MatrixXd& joint_mat, const Eigen::VectorXd& state, int joint_id);
 	static tMatrix ParentChildTrans(const Eigen::MatrixXd& joint_mat, const Eigen::VectorXd& state, int joint_id);
 	static tMatrix JointWorldTrans(const Eigen::MatrixXd& joint_mat, const Eigen::VectorXd& state, int joint_id);
 	static tMatrix WorldJointTrans(const Eigen::MatrixXd& joint_mat, const Eigen::VectorXd& state, int joint_id);
-	
+
 	static bool Load(const Json::Value& root, Eigen::MatrixXd& out_joint_mat);
 	static int GetNumJoints(const Eigen::MatrixXd& joint_mat);
 	static int GetRoot(const Eigen::MatrixXd& joint_mat);
@@ -149,7 +150,7 @@ public:
 
 	static bool LoadDrawShapeDefs(const std::string& char_file, Eigen::MatrixXd& out_draw_defs);
 	static bool ParseDrawShapeDef(const Json::Value& root, tBodyDef& out_def);
-	
+
 	static eBodyShape GetBodyShape(const Eigen::MatrixXd& body_defs, int part_id);
 	static tVector GetBodyAttachPt(const Eigen::MatrixXd& body_defs, int part_id);
 	static void GetBodyRotation(const Eigen::MatrixXd& body_defs, int part_id, tVector& out_axis, double& out_theta);
@@ -182,3 +183,5 @@ protected:
 	static tMatrix ChildParentTransPrismatic(const Eigen::MatrixXd& joint_mat, const Eigen::VectorXd& state, int joint_id);
 
 };
+
+#endif

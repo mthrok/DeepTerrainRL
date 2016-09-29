@@ -1,9 +1,10 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_ANIM_IKSOVER_H_
+#define _DEEP_TERRAIN_RL_ANIM_IKSOVER_H_
 
-#include "Eigen/Dense"
 #include <random>
 #include <time.h>
-#include "util/MathUtil.h"
+#include <Eigen/Dense>
+#include "util/MathUtil.hpp"
 
 class cIKSolver
 {
@@ -101,3 +102,5 @@ private:
 	static void ClampMag(tVector& vec, double max_d);
 
 };
+
+#endif

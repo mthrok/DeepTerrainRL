@@ -1,6 +1,7 @@
-#include "IKSolver.h"
+#include "anim/IKSolver.hpp"
+#include "anim/KinTree.hpp"
 #include <iostream>
-#include "anim/KinTree.h"
+
 
 const int gPosDims = 2;
 
@@ -61,7 +62,7 @@ void cIKSolver::Solve(const tProblem& prob, tSolution& out_soln)
 		{
 			delta_obj_acc = delta_obj;
 		}
-		else 
+		else
 		{
 			delta_obj_acc = delta_obj + discount * delta_obj_acc;
 
@@ -122,7 +123,7 @@ void cIKSolver::StepWeighted(const Eigen::MatrixXd& cons_desc, const tProblem& p
 		J_weighted += weight * J.transpose() * J;
 		Jt_err_weighted += weight * J.transpose() * err;
 	}
-	
+
 	// link scaling is damped separately according to stiffness
 	for (int i = 0; i < gPosDims + num_joints; ++i)
 	{
@@ -141,7 +142,7 @@ void cIKSolver::StepWeighted(const Eigen::MatrixXd& cons_desc, const tProblem& p
 		J_weighted(idx, idx) += link_stiffness;
 	}
 #endif
-	
+
 	Eigen::VectorXd x = J_weighted.lu().solve(Jt_err_weighted);
 	cKinTree::ApplyStep(joint_desc, x, out_pose);
 }
@@ -184,7 +185,7 @@ void cIKSolver::StepHybrid(const Eigen::MatrixXd& cons_desc, const tProblem& pro
 		Jt_err_weighted.setZero();
 
 		chain_joints.setZero();
-		
+
 		int num_valid_cons = 0;
 		for (int c = 0; c < num_cons; ++c)
 		{
@@ -249,7 +250,7 @@ void cIKSolver::StepHybrid(const Eigen::MatrixXd& cons_desc, const tProblem& pro
 			Eigen::VectorXd y = J_weighted.lu().solve(Jt_err_weighted);
 			Eigen::VectorXd x = N * y;
 			cKinTree::ApplyStep(joint_desc, x, out_pose);
-			
+
 			bool is_last = p == max_priority;
 
 			if (!is_last)
@@ -511,7 +512,7 @@ Eigen::MatrixXd cIKSolver::BuildConsPosJacob(const Eigen::MatrixXd& joint_mat, c
 	{
 		J(i, i) = 1;
 	}
-	 
+
 	int curr_id = parent_id;
 	while (true)
 	{
@@ -595,7 +596,7 @@ Eigen::MatrixXd cIKSolver::BuildConsPosXJacob(const Eigen::MatrixXd& joint_mat, 
 
 			double parent_world_theta = cKinTree::CalcJointWorldTheta(joint_desc, curr_parent_id);
 			double world_attach_x = std::cos(parent_world_theta) * attach_x - std::sin(parent_world_theta) * attach_y;
-			
+
 			J(0, gPosDims + num_joints + curr_id) = world_attach_x;
 #endif
 			curr_id = curr_parent_id;

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_UTIL_INDEXMANAGER_H_
+#define _DEEP_TERRAIN_RL_UTIL_INDEXMANAGER_H_
+
 #include <vector>
 #include <mutex>
 #include <condition_variable>
@@ -43,3 +45,5 @@ protected:
 	std::mutex mWaitMutex;
 	std::condition_variable mCond;
 };
+
+#endif

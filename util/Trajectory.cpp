@@ -1,4 +1,4 @@
-#include "Trajectory.h"
+#include "util/Trajectory.hpp"
 
 cTrajectory::cTrajectory()
 {
@@ -133,7 +133,7 @@ void cTrajectory::Filter(double r)
 		double sum_weight = 0;
 		double phase = AnchorToPhase(i);
 		Eigen::VectorXd val = Eigen::VectorXd::Zero(GetDim());
-		
+
 		for (int s = -half_samples; s <= half_samples; ++s)
 		{
 			double d_phase = s * phase_step;

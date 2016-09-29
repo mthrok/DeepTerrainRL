@@ -1,7 +1,9 @@
-#include "FileUtil.h"
+#include "util/FileUtil.hpp"
+
 #include <assert.h>
 #include <cstdarg>
 #include <memory>
+
 #ifdef _LINUX_
 #include <iostream>
 #include <string.h>
@@ -90,8 +92,8 @@ long int cFileUtil::GetFileSize(const std::string& filename)
 std::string cFileUtil::GetExtension(const std::string& filename)
 {
 	// remove leading '.'
-	size_t dot_idx = 0;
-	for (dot_idx; dot_idx < filename.size(); ++dot_idx)
+	size_t dot_idx;
+	for (dot_idx = 0; dot_idx < filename.size(); ++dot_idx)
 	{
 		if (filename[dot_idx] != '.')
 		{
@@ -242,7 +244,7 @@ bool cFileUtil::ReadTable(FILE* f, const std::string& tag_beg, const std::string
 
 				char_array = std::vector<char>(str.begin(), str.end());
 				char_array.push_back(0);
-				
+
 				char* p_char = NULL;
 				p_char = strtok(&char_array[0], delims);
 

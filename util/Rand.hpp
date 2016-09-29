@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_UTIL_RAND_H_
+#define _DEEP_TERRAIN_RL_UTIL_RAND_H_
 
 #include <random>
 
@@ -24,3 +25,5 @@ private:
 	std::normal_distribution<double> mRandDoubleDistNorm;
 	std::uniform_int_distribution<int> mRandIntDist;
 };
+
+#endif

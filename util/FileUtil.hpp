@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_UTIL_FILEUTIL_H_
+#define _DEEP_TERRAIN_RL_UTIL_FILEUTIL_H_
 
 #include <vector>
 #include <string>
@@ -29,3 +30,5 @@ public:
 private:
 	static std::string ReadTextFile(FILE* f);
 };
+
+#endif

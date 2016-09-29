@@ -1,4 +1,4 @@
-#include "MathUtil.h"
+#include "util/MathUtil.hpp"
 #include <time.h>
 
 cRand cMathUtil::gRand = cRand();
@@ -90,7 +90,7 @@ tMatrix cMathUtil::ScaleMat(const tVector& scale)
 tMatrix cMathUtil::RotateMat(const tVector& axis, double theta)
 {
 	assert(std::abs(axis.squaredNorm() - 1) < 0.01);
-	
+
 	double c = std::cos(theta);
 	double s = std::sin(theta);
 	double x = axis[0];

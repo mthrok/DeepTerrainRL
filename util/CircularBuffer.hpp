@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_UTIL_CIRCULARBUFFER_H_
+#define _DEEP_TERRAIN_RL_UTIL_CIRCULARBUFFER_H_
+
 #include <vector>
 
 template<typename tVal, typename tAlloc = std::allocator<tVal>>
@@ -114,3 +116,5 @@ size_t cCircularBuffer<tVal, tAlloc>::CalcIdx(size_t i) const
 	size_t idx = (mHead + i) % GetSize();
 	return idx;
 }
+
+#endif

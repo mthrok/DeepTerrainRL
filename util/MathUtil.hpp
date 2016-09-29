@@ -1,10 +1,11 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_UTIL_MATHUTIL_H_
+#define _DEEP_TERRAIN_RL_UTIL_MATHUTIL_H_
 
 #include <random>
 
-#include "Eigen/Dense"
-#include "Eigen/StdVector"
-#include "Rand.h"
+#include <Eigen/Dense>
+#include <Eigen/StdVector>
+#include "util/Rand.hpp"
 
 const int gInvalidIdx = -1;
 
@@ -13,7 +14,7 @@ typedef Eigen::Vector4d tVector;
 typedef Eigen::Vector4d tVector3;
 typedef Eigen::Matrix4d tMatrix;
 typedef Eigen::Matrix3d tMatrix3;
-typedef std::vector<tVector, Eigen::aligned_allocator<tVector>> tVectorArr;
+typedef std::vector<tVector, Eigen::aligned_allocator<tVector> > tVectorArr;
 
 const double gRadiansToDegrees = 57.2957795;
 const tVector gGravity = tVector(0, -9.8, 0, 0);
@@ -65,3 +66,5 @@ private:
 		return (T(0) < val) - (val < T(0));
 	}
 };
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_UTIL_ARGPARSER_H_
+#define _DEEP_TERRAIN_RL_UTIL_ARGPARSER_H_
 
 #include <vector>
 #include <string>
@@ -32,3 +33,5 @@ protected:
 	virtual bool IsValidKeyIndex(int idx) const;
 	virtual int FindKeyIndex(const std::string& key) const;
 };
+
+#endif

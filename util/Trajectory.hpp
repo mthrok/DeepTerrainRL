@@ -1,6 +1,7 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_UTIL_TRAGECTORY_H_
+#define _DEEP_TERRAIN_RL_UTIL_TRAGECTORY_H_
 
-#include "util/MathUtil.h"
+#include "util/MathUtil.hpp"
 
 class cTrajectory
 {
@@ -39,3 +40,5 @@ protected:
 	virtual double NormalizePhase(double t) const;
 	virtual double GetPhaseStep() const;
 };
+
+#endif

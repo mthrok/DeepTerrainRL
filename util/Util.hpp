@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_UTIL_UTIL_H_
+#define _DEEP_TERRAIN_RL_UTIL_UTIL_H_
+
 #include <ctime>
 
 #define TIMER_PRINT_BEG(NAME) \
@@ -24,3 +26,5 @@
 	double time_elapsed_ ## NAME = static_cast<double>(total_time_end_ ## NAME - total_time_beg_ ## NAME) / CLOCKS_PER_SEC; \
 	TIME_REC = (TIME_REC * COUNT_REC + time_elapsed_ ## NAME) / (COUNT_REC + 1); \
 	++COUNT_REC;
+
+#endif

@@ -1,4 +1,4 @@
-#include "JsonUtil.h"
+#include "util/JsonUtil.hpp"
 
 std::string cJsonUtil::BuildVectorJson(const Eigen::VectorXd& vec)
 {
@@ -19,7 +19,7 @@ bool cJsonUtil::ReadVectorJson(const Json::Value& root, Eigen::VectorXd& out_vec
 {
 	bool succ = false;
 	int num_vals = root.size();
-	
+
 	if (root.isArray())
 	{
 		out_vec.resize(num_vals);

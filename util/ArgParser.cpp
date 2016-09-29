@@ -1,11 +1,12 @@
-#include "ArgParser.h"
+#include "util/ArgParser.hpp"
+#include "util/FileUtil.hpp"
 
 #include <assert.h>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 
-#include "FileUtil.h"
+
 
 const int gInvalidIndex = -1;
 const char gKeyStart = '-';
@@ -41,7 +42,6 @@ void cArgParser::Clear()
 
 void cArgParser::AppendArgs(const std::string& file)
 {
-	bool object_found = false;
 	bool is_comment = false;
 	char buffer;
 	std::string str_buffer = "";

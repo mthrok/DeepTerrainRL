@@ -1,4 +1,4 @@
-#include "IndexManager.h"
+#include "util/IndexManager.hpp"
 #include <assert.h>
 
 const int cIndexManager::gInvalidIndex = -1;
@@ -139,7 +139,7 @@ cIndexManagerMT::~cIndexManagerMT()
 int cIndexManagerMT::RequestIndex()
 {
 	int idx = gInvalidIndex;
-	
+
 	while(true)
 	{
 		{

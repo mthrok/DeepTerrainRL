@@ -1,16 +1,16 @@
-#include "DrawSimCharacter.h"
-#include "DrawCharacter.h"
-#include "sim/DogController.h"
-#include "sim/DogControllerCacla.h"
-#include "sim/DogControllerMACE.h"
-#include "sim/GoatControllerMACE.h"
-#include "sim/RaptorControllerCacla.h"
-#include "sim/RaptorControllerMACE.h"
-#include "sim/RaptorControllerMACE.h"
-#include "sim/SimBox.h"
-#include "render/DrawObj.h"
-#include "render/DrawPerturb.h"
-#include "render/GraphUtil.h"
+#include "render/DrawSimCharacter.hpp"
+#include "render/DrawCharacter.hpp"
+#include "sim/DogController.hpp"
+#include "sim/DogControllerCacla.hpp"
+#include "sim/DogControllerMACE.hpp"
+#include "sim/GoatControllerMACE.hpp"
+#include "sim/RaptorControllerCacla.hpp"
+#include "sim/RaptorControllerMACE.hpp"
+#include "sim/RaptorControllerMACE.hpp"
+#include "sim/SimBox.hpp"
+#include "render/DrawObj.hpp"
+#include "render/DrawPerturb.hpp"
+#include "render/GraphUtil.hpp"
 
 void cDrawSimCharacter::Draw(const cSimCharacter& character, const tVector& fill_tint, const tVector& line_col, bool enable_draw_shape)
 {
@@ -25,13 +25,13 @@ void cDrawSimCharacter::Draw(const cSimCharacter& character, const tVector& fill
 	}
 }
 
-void cDrawSimCharacter::DrawCoM(const cSimCharacter& character, double marker_size, double vel_scale, 
+void cDrawSimCharacter::DrawCoM(const cSimCharacter& character, double marker_size, double vel_scale,
 								const tVector& col, const tVector& offset)
 {
 	const double arrow_size = marker_size * 0.65;
 	tVector com = character.CalcCOM();
 	tVector com_vel = character.CalcCOMVel();
-	
+
 	cDrawUtil::SetLineWidth(4);
 	cDrawUtil::SetColor(tVector(col[0], col[1], col[2], col[3]));
 	cDrawUtil::DrawCross(com + offset, marker_size);
@@ -130,10 +130,10 @@ void cDrawSimCharacter::DrawTerainFeatures(const cSimCharacter& character, doubl
 	for (int i = 0; i < num_terrain_features; ++i)
 	{
 		tVector sample = GetCharGroundSample(character, i);
-		
+
 		tVector base_sample = sample;
 		base_sample[1] = base_h;
-		
+
 		cDrawUtil::DrawArrow2D(base_sample + offset, sample + offset, arrow_size);
 	}
 }
@@ -182,7 +182,7 @@ void cDrawSimCharacter::DrawPolicyPlots(const cCharController* ctrl, const cCame
 	char_features_plot.mColors.push_back(char_feature_col);
 	cGraphUtil::DrawBarPlot(char_features_plot, char_features_plot_pos, char_features_plot_size);
 
-	
+
 	const double terr_min_val = -2;
 	const double terr_max_val = 2;
 	const double terr_base_val = 0;
@@ -264,7 +264,7 @@ void cDrawSimCharacter::DrawInfoValLog(const cCircularBuffer<double>& val_log, d
 {
 	const double min_val = 0;
 	const double max_val = 1;
-	
+
 	int num_val = static_cast<int>(val_log.GetSize());
 	if (num_val > 0)
 	{
@@ -334,7 +334,7 @@ int cDrawSimCharacter::GetCharNumGroundFeatures(const cSimCharacter& character)
 	{
 		num_samples = ctrl->GetNumGroundSamples();
 	}
-	
+
 	return num_samples;
 }
 

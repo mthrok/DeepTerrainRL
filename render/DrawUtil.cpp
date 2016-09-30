@@ -1,4 +1,4 @@
-#include "DrawUtil.h"
+#include "render/DrawUtil.hpp"
 #include <GL/glew.h>
 
 GLUquadricObj* gQuadObj;
@@ -140,7 +140,7 @@ void cDrawUtil::DrawQuad(const tVector& a, const tVector& b, const tVector& c, c
 }
 
 void cDrawUtil::DrawQuad(const tVector& a, const tVector& b, const tVector& c, const tVector& d,
-						const tVector& coord_a, const tVector& coord_b, const tVector& coord_c, const tVector& coord_d, 
+						const tVector& coord_a, const tVector& coord_b, const tVector& coord_c, const tVector& coord_d,
 						eDrawMode draw_mode)
 {
 	GLenum gl_mode = (draw_mode == eDrawSolid) ? GL_QUADS : GL_LINE_LOOP;
@@ -184,7 +184,7 @@ void cDrawUtil::DrawDisk(double r, int slices, eDrawMode draw_mode)
 	{
 		glVertex3d(0.f, 0.f, 0.f);
 	}
-	
+
 	for (int i = 0; i < slices; ++i)
 	{
 		double theta0 = i * d_theta;
@@ -340,7 +340,7 @@ void cDrawUtil::DrawArrow2D(const tVector& start, const tVector& end, double hea
 		dir_len = dir.norm();
 		dir /= dir_len;
 	}
-	
+
 	dir[3] = 0;
 	tVector axis = tVector(0, 0, 1, 0);
 	tVector tangent = axis.cross3(dir);
@@ -412,7 +412,7 @@ void cDrawUtil::DrawGrid2D(const tVector& origin, const tVector& size, double sp
 	}
 }
 
-void cDrawUtil::DrawRuler2D(const tVector& origin, const tVector& size, 
+void cDrawUtil::DrawRuler2D(const tVector& origin, const tVector& size,
 			const tVector& col, double marker_spacing, double big_marker_spacing,
 			double marker_h, double big_marker_h)
 {
@@ -452,14 +452,14 @@ void cDrawUtil::DrawRuler2D(const tVector& origin, const tVector& size,
 	}
 }
 
-void cDrawUtil::DrawSemiCircle(const tVector& pos, double r, int slices, 
+void cDrawUtil::DrawSemiCircle(const tVector& pos, double r, int slices,
 							double min_theta, double max_theta, eDrawMode draw_mode)
 {
 	double d_theta = (max_theta - min_theta) / (slices - 1);
 
 	GLenum gl_mode = (draw_mode == eDrawSolid) ? GL_TRIANGLE_FAN : GL_LINE_LOOP;
 	glBegin(gl_mode);
-	
+
 	glTexCoord2d(0, 0);
 	glNormal3d(0, 0, 1);
 	glVertex3d(pos[0], pos[1], pos[2]);
@@ -479,8 +479,8 @@ void cDrawUtil::DrawSemiCircle(const tVector& pos, double r, int slices,
 	glEnd();
 }
 
-void cDrawUtil::DrawCalibMarker(const tVector& pos, double r, int slices, 
-								const tVector& col0, const tVector& col1, 
+void cDrawUtil::DrawCalibMarker(const tVector& pos, double r, int slices,
+								const tVector& col0, const tVector& col1,
 								eDrawMode draw_mode)
 {
 	SetColor(col0);

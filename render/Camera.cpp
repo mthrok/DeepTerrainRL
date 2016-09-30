@@ -1,4 +1,4 @@
-#include "Camera.h"
+#include "render/Camera.hpp"
 #include <iostream>
 // TODO: pull out into some util/platform header file.
 #ifdef __APPLE__
@@ -36,7 +36,7 @@ cCamera::cCamera(const tVector& pos, const tVector& focus, const tVector& up,
 	mUp = up;
 	mNearZ = near_z;
 	mFarZ = far_z;
-	
+
 	Resize(w, h);
 
 	mMouseDown = 0;

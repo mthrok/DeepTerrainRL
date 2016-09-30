@@ -1,10 +1,11 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_RENDER_DRAWOBJ_H_
+#define _DEEP_TERRAIN_RL_RENDER_DRAWOBJ_H_
 
-#include "DrawUtil.h"
-#include "util/MathUtil.h"
-#include "sim/SimBox.h"
-#include "sim/SimPlane.h"
-#include "sim/SimCapsule.h"
+#include "render/DrawUtil.hpp"
+#include "util/MathUtil.hpp"
+#include "sim/SimBox.hpp"
+#include "sim/SimPlane.hpp"
+#include "sim/SimCapsule.hpp"
 
 class cDrawObj
 {
@@ -14,3 +15,5 @@ public:
 	static void DrawPlane(const cSimPlane* plane, double size, cDrawUtil::eDrawMode draw_mode = cDrawUtil::eDrawSolid);
 	static void DrawCapsule(const cSimCapsule* cap, cDrawUtil::eDrawMode draw_mode = cDrawUtil::eDrawSolid);
 };
+
+#endif

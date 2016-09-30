@@ -1,6 +1,7 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_RENDER_DRAWGROUND_H_
+#define _DEEP_TERRAIN_RL_RENDER_DRAWGROUND_H_
 
-#include "sim/Ground.h"
+#include "sim/Ground.hpp"
 
 class cDrawGround
 {
@@ -14,3 +15,5 @@ protected:
 	static void DrawVar2D(const cGround* ground, const tVector& col, const tVector& bound_min, const tVector& bound_max);
 	static void DrawVar3D(const cGround* ground, const tVector& col, const tVector& bound_min, const tVector& bound_max);
 };
+
+#endif

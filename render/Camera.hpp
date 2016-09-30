@@ -1,6 +1,7 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_RENDER_CAMERA_H_
+#define _DEEP_TERRAIN_RL_RENDER_CAMERA_H_
 
-#include "util/MathUtil.h"
+#include "util/MathUtil.hpp"
 
 class cCamera
 {
@@ -77,3 +78,5 @@ protected:
 	virtual tMatrix BuildProjMatrixOrtho() const;
 	virtual tMatrix BuildProjMatrixProj() const;
 };
+
+#endif

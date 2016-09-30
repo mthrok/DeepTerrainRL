@@ -1,9 +1,10 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_RENDER_DRAWSIMCHARACTER_H_
+#define _DEEP_TERRAIN_RL_RENDER_DRAWSIMCHARACTER_H_
 
-#include "sim/SimCharacter.h"
-#include "sim/Ground.h"
-#include "util/CircularBuffer.h"
-#include "render/Camera.h"
+#include "sim/SimCharacter.hpp"
+#include "sim/Ground.hpp"
+#include "util/CircularBuffer.hpp"
+#include "render/Camera.hpp"
 
 class cCharController;
 class cDogController;
@@ -39,3 +40,5 @@ protected:
 	static void DrawShapes(const cSimCharacter& character, const tVector& fill_tint, const tVector& line_col);
 
 };
+
+#endif

@@ -1,6 +1,5 @@
-#include "DrawKinTree.h"
-
-#include "render/DrawUtil.h"
+#include "render/DrawKinTree.hpp"
+#include "render/DrawUtil.hpp"
 
 void cDrawKinTree::Draw(const Eigen::MatrixXd& joint_desc, const Eigen::VectorXd& pose, double link_width, const tVector& fill_col, const tVector& line_col)
 {
@@ -34,11 +33,11 @@ void cDrawKinTree::DrawTree(const Eigen::MatrixXd& joint_desc, const Eigen::Vect
 			cDrawUtil::DrawRect(pos, size, cDrawUtil::eDrawSolid);
 			cDrawUtil::SetColor(tVector(line_col[0], line_col[1], line_col[2], line_col[3]));
 			cDrawUtil::DrawRect(pos, size, cDrawUtil::eDrawWire);
-			
+
 			// draw node
 			cDrawUtil::SetColor(tVector(fill_col[0] * 0.25, fill_col[1] * 0.25, fill_col[2] * 0.25, fill_col[3]));
 			cDrawUtil::DrawDisk(node_radius, 16);
-			
+
 			glPopMatrix();
 		}
 

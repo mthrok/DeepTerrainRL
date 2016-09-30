@@ -1,7 +1,8 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_RENDER_DRAWUTIL_H_
+#define _DEEP_TERRAIN_RL_RENDER_DRAWUTIL_H_
 
-#include "util/MathUtil.h"
-#include "TextureDesc.h"
+#include "util/MathUtil.hpp"
+#include "render/TextureDesc.hpp"
 
 #ifdef __APPLE__
 	#include <GLUT/glut.h>
@@ -24,7 +25,7 @@ public:
 	static void DrawBox(const tVector& pos, const tVector& size, eDrawMode draw_mode = eDrawSolid);
 	static void DrawTriangle(const tVector& pos, double side_len, eDrawMode draw_mode = eDrawSolid);
 	static void DrawQuad(const tVector& a, const tVector& b, const tVector& c, const tVector& d, eDrawMode draw_mode = eDrawSolid);
-	static void DrawQuad(const tVector& a, const tVector& b, const tVector& c, const tVector& d, 
+	static void DrawQuad(const tVector& a, const tVector& b, const tVector& c, const tVector& d,
 						const tVector& coord_a, const tVector& coord_b, const tVector& coord_c, const tVector& coord_d,
 						eDrawMode draw_mode = eDrawSolid);
 	static void DrawDisk(const tVector& pos, double r, int slices, eDrawMode draw_mode = eDrawSolid);
@@ -45,9 +46,9 @@ public:
 							const tVector& col, double marker_spacing, double big_marker_spacing,
 							double marker_h, double big_marker_h);
 
-	static void DrawSemiCircle(const tVector& pos, double r, int slices, double min_theta, double max_theta, 
+	static void DrawSemiCircle(const tVector& pos, double r, int slices, double min_theta, double max_theta,
 								eDrawMode draw_mode = eDrawSolid);
-	static void DrawCalibMarker(const tVector& pos, double r, int slices, 
+	static void DrawCalibMarker(const tVector& pos, double r, int slices,
 								const tVector& col0, const tVector& col1, eDrawMode draw_mode = eDrawSolid);
 
 	static void DrawString(const std::string& str, const tVector& scale);
@@ -67,3 +68,5 @@ public:
 
 	static void Finish();
 };
+
+#endif

@@ -1,6 +1,7 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_RENDER_DRAWPERTURB_H_
+#define _DEEP_TERRAIN_RL_RENDER_DRAWPERTURB_H_
 
-#include "sim/Perturb.h"
+#include "sim/Perturb.hpp"
 
 class cDrawPerturb
 {
@@ -17,3 +18,5 @@ protected:
 	static void DrawForce(const tPerturb& perturb);
 	static void DrawTorque(const tPerturb& perturb);
 };
+
+#endif

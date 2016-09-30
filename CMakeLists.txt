@@ -39,6 +39,10 @@ add_library(Learning ${LEARNING_SOURCES})
 AUX_SOURCE_DIRECTORY(sim SIM_SOURCES)
 add_library(Sim ${SIM_SOURCES})
 
+# Render Module
+AUX_SOURCE_DIRECTORY(render RENDER_SOURCES)
+add_library(Render ${RENDER_SOURCES})
+
 include_directories("${PROJECT_SOURCE_DIR}/external/Bullet/src")
 
 include_directories("${PROJECT_SOURCE_DIR}/external/caffe/src")

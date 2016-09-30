@@ -1,6 +1,7 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_RENDER_GRAPHUTIL_H_
+#define _DEEP_TERRAIN_RL_RENDER_GRAPHUTIL_H_
 
-#include "render/DrawUtil.h"
+#include "render/DrawUtil.hpp"
 
 class cGraphUtil
 {
@@ -18,3 +19,5 @@ public:
 
 	static void DrawBarPlot(const tBarPlot& bar_plot, const tVector& pos, const tVector& size);
 };
+
+#endif

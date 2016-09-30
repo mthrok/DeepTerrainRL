@@ -1,4 +1,4 @@
-#include "GraphUtil.h"
+#include "render/GraphUtil.hpp"
 
 cGraphUtil::tBarPlot::tBarPlot()
 {
@@ -17,7 +17,7 @@ void cGraphUtil::DrawBarPlot(const tBarPlot& bar_plot, const tVector& pos, const
 
 	const Eigen::VectorXd& vals = bar_plot.mVals;
 	double min_val = bar_plot.mMinVal;
-	double max_val = bar_plot.mMaxVal; 
+	double max_val = bar_plot.mMaxVal;
 	double base_val = bar_plot.mBaseVal;
 	const tVectorArr& cols = bar_plot.mColors;
 
@@ -33,7 +33,7 @@ void cGraphUtil::DrawBarPlot(const tBarPlot& bar_plot, const tVector& pos, const
 
 		tVector bar_min = tVector::Zero();
 		tVector bar_max = tVector::Zero();
-		
+
 		bar_min[0] = static_cast<double>(i) / num_vals;
 		bar_max[0] = static_cast<double>(i + 1) / num_vals;
 

@@ -1,6 +1,7 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_RENDER_CHARACTER_H_
+#define _DEEP_TERRAIN_RL_RENDER_CHARACTER_H_
 
-#include "anim/Character.h"
+#include "anim/Character.hpp"
 
 class cDrawCharacter
 {
@@ -12,3 +13,5 @@ protected:
 	static void DrawShapeBox(const cCharacter& character, const cKinTree::tDrawShapeDef& def, const tVector& fill_tint, const tVector& line_col);
 	static void DrawShapeCapsule(const cCharacter& character, const cKinTree::tDrawShapeDef& def, const tVector& fill_tint, const tVector& line_col);
 };
+
+#endif

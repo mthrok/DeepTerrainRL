@@ -1,8 +1,8 @@
-#include "TextureUtil.h"
+#include "render/TextureUtil.hpp"
 #include <iostream>
 
-void CreateFrameBuffer( GLuint& buffer_obj, GLuint& texture, GLuint& depth_stencil, 
-					   int width, int height, int depth, int channels, GLenum format, 
+void CreateFrameBuffer( GLuint& buffer_obj, GLuint& texture, GLuint& depth_stencil,
+					   int width, int height, int depth, int channels, GLenum format,
 					   GLenum type, bool mipmaps )
 {
 	bool is_3d_tex = depth > 1;
@@ -14,12 +14,12 @@ void CreateFrameBuffer( GLuint& buffer_obj, GLuint& texture, GLuint& depth_stenc
 	}
 
 	glBindTexture( tex_type, texture );
-	
+
 	glTexParameteri(tex_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(tex_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(tex_type, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(tex_type, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	
+
 	if (is_3d_tex)
 	{
 		glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
@@ -44,7 +44,7 @@ void CreateFrameBuffer( GLuint& buffer_obj, GLuint& texture, GLuint& depth_stenc
 	}
 
 	glBindTexture(tex_type, 0);
-	
+
 	// depth buffer
 	glGenRenderbuffers(1, &depth_stencil);
 	glBindRenderbuffer(GL_RENDERBUFFER, depth_stencil);

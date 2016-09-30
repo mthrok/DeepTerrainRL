@@ -1,4 +1,4 @@
-#include "DrawObj.h"
+#include "render/DrawObj.hpp"
 
 void cDrawObj::Draw(const cSimObj* obj, cDrawUtil::eDrawMode draw_mode)
 {

@@ -1,6 +1,6 @@
-#include "DrawPerturb.h"
-#include "render/DrawUtil.h"
-#include "sim/SimObj.h"
+#include "render/DrawPerturb.hpp"
+#include "render/DrawUtil.hpp"
+#include "sim/SimObj.hpp"
 
 const double cDrawPerturb::gForceScale = 0.01;
 const double cDrawPerturb::gTorqueScale = 0.00075;// * 0.25;

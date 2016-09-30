@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_RENDER_TEXTUREDESC_H_
+#define _DEEP_TERRAIN_RL_RENDER_TEXTUREDESC_H_
 
 #include <vector>
 #include <stack>
@@ -10,16 +11,16 @@
 #  include <GL/glut.h>
 #endif
 
-#include "TextureUtil.h"
+#include "render/TextureUtil.hpp"
 
 class cTextureDesc
 {
 public:
-	cTextureDesc(int width, int height, int channels, GLenum format, 
+	cTextureDesc(int width, int height, int channels, GLenum format,
 				GLenum type, bool mipmaps);
-	cTextureDesc(int width, int height, int depth, int channels, GLenum format, 
+	cTextureDesc(int width, int height, int depth, int channels, GLenum format,
 				GLenum type, bool mipmaps);
-	cTextureDesc(GLuint obj, GLuint tex, GLuint ds, int width, int height, int depth, 
+	cTextureDesc(GLuint obj, GLuint tex, GLuint ds, int width, int height, int depth,
 					int channels, GLenum format);
 	virtual ~cTextureDesc();
 
@@ -68,3 +69,5 @@ protected:
 	virtual void RestorePrevParams() const;
 	virtual void RecordPrevParams() const;
 };
+
+#endif

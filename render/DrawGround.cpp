@@ -1,7 +1,7 @@
-#include "DrawGround.h"
-#include "DrawUtil.h"
-#include "sim/GroundFlat.h"
-#include "sim/GroundVar2D.h"
+#include "render/DrawGround.hpp"
+#include "render/DrawUtil.hpp"
+#include "sim/GroundFlat.hpp"
+#include "sim/GroundVar2D.hpp"
 
 const double gMarkerSpacing = 0.20;
 const double gBigMarkerSpacing = gMarkerSpacing * 5;
@@ -45,7 +45,7 @@ void cDrawGround::Draw3D(const cGround* ground, const tVector& col, const tVecto
 void cDrawGround::DrawFlat2D(const cGround* ground, const tVector& col, const tVector& bound_min, const tVector& bound_max)
 {
 	assert(ground->GetGroundType() == cGround::eGroundTypeFlat);
-	
+
 	const cGroundFlat* ground_flat = reinterpret_cast<const cGroundFlat*>(ground);
 	tVector ground_origin = ground_flat->GetPos();
 
@@ -120,7 +120,7 @@ void cDrawGround::DrawVar2D(const cGround* ground, const tVector& col, const tVe
 		tVector d = a;
 		c[1] = curr_min_y;
 		d[1] = curr_min_y;
-		
+
 		cDrawUtil::SetLineWidth(1);
 		cDrawUtil::SetColor(col);
 		cDrawUtil::DrawQuad(a, d, c, b);
@@ -141,7 +141,7 @@ void cDrawGround::DrawVar2D(const cGround* ground, const tVector& col, const tVe
 		{
 			bool valid_sample = true;
 			double ground_h = ground->SampleHeight(tVector(x, 0, ground_origin[2], 0), valid_sample);
-			
+
 			if (valid_sample)
 			{
 				tVector a = tVector(x, ground_h + curr_h * 0.5f, 0, 0);

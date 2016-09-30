@@ -1,4 +1,4 @@
-#include "TextureDesc.h"
+#include "render/TextureDesc.hpp"
 #include <assert.h>
 
 std::stack<cTextureDesc::tTexEntry> cTextureDesc::mTexStack = std::stack<cTextureDesc::tTexEntry>();
@@ -25,7 +25,7 @@ cTextureDesc::cTextureDesc()
 	mDepthStencil = -1;
 }
 
-cTextureDesc::cTextureDesc( int width, int height, int channels, GLenum format, 
+cTextureDesc::cTextureDesc( int width, int height, int channels, GLenum format,
 						   GLenum type, bool mipmaps )
 	: mWidth( width ),
 		mHeight( height ),
@@ -35,11 +35,11 @@ cTextureDesc::cTextureDesc( int width, int height, int channels, GLenum format,
 		mType( type ),
 		mHasMips( mipmaps )
 {
-	CreateFrameBuffer( mObject, mTexture, mDepthStencil, mWidth, mHeight, mDepth, 
+	CreateFrameBuffer( mObject, mTexture, mDepthStencil, mWidth, mHeight, mDepth,
 		mChannels, mFormat, mType, mHasMips );
 }
 
-cTextureDesc::cTextureDesc( int width, int height, int depth, int channels, 
+cTextureDesc::cTextureDesc( int width, int height, int depth, int channels,
 						   GLenum format, GLenum type, bool mipmaps )
 	: mWidth( width ),
 	  mHeight( height ),
@@ -49,11 +49,11 @@ cTextureDesc::cTextureDesc( int width, int height, int depth, int channels,
 	  mType( type ),
 	  mHasMips( mipmaps )
 {
-	CreateFrameBuffer( mObject, mTexture, mDepthStencil, mWidth, mHeight, mDepth, 
+	CreateFrameBuffer( mObject, mTexture, mDepthStencil, mWidth, mHeight, mDepth,
 		mChannels, mFormat, mType, mHasMips );
 }
 
-cTextureDesc::cTextureDesc( GLuint obj, GLuint tex, GLuint ds, int width, int height, 
+cTextureDesc::cTextureDesc( GLuint obj, GLuint tex, GLuint ds, int width, int height,
 						    int depth, int channels, GLenum format )
 	: mWidth( width ),
 	  mHeight( height ),
@@ -88,7 +88,7 @@ void cTextureDesc::BindBuffer3DSlice(int slice) const
 {
 	RecordPrevParams();
 	glBindFramebuffer(GL_FRAMEBUFFER, mObject);
-	glFramebufferTexture3DEXT(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, 
+	glFramebufferTexture3DEXT(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
 							GL_TEXTURE_3D, mObject, 0, slice);
 	glViewport(0, 0, mWidth, mHeight);
 }
@@ -152,7 +152,7 @@ void cTextureDesc::Reshape( int w, int h )
 	if ( mObject != 0 ) // 0 indicates the device's frame buffer, so no need to resize it
 	{
 		DeleteFrameBuffer(mObject, mTexture, mDepthStencil);
-		CreateFrameBuffer(mObject, mTexture, mDepthStencil, mWidth, mHeight, 
+		CreateFrameBuffer(mObject, mTexture, mDepthStencil, mWidth, mHeight,
 							mDepth, mChannels, mFormat, mType, mHasMips);
 	}
 }

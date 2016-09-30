@@ -1,6 +1,6 @@
-#include "DrawCharacter.h"
-#include "DrawKinTree.h"
-#include "render/DrawUtil.h"
+#include "render/DrawCharacter.hpp"
+#include "render/DrawKinTree.hpp"
+#include "render/DrawUtil.hpp"
 #include <iostream>
 
 void cDrawCharacter::Draw(const cCharacter& character, double link_width, const tVector& fill_col, const tVector& line_col)
@@ -42,7 +42,7 @@ void cDrawCharacter::DrawShapeBox(const cCharacter& character, const cKinTree::t
 	col = col.cwiseProduct(fill_tint);
 
 	tMatrix world_trans = character.BuildJointWorldTrans(parent_joint);
-	
+
 	glPushMatrix();
 	cDrawUtil::GLMultMatrix(world_trans);
 	cDrawUtil::Translate(attach_pt);

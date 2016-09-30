@@ -1,5 +1,5 @@
-#include "DrawWorld.h"
-#include "render/DrawPerturb.h"
+#include "render/DrawWorld.hpp"
+#include "render/DrawPerturb.hpp"
 
 void cDrawWorld::DrawPerturbs(const cWorld& world)
 {

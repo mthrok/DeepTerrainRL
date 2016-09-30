@@ -1,7 +1,8 @@
-#pragma once
-#include <memory>
+#ifndef _DEEP_TERRAIN_RL_SCENARIOS_DRAWSCENARIOEXPMACE_H_
+#define _DEEP_TERRAIN_RL_SCENARIOS_DRAWSCENARIOEXPMACE_H_
 
-#include "DrawScenarioExp.h"
+#include <memory>
+#include "scenarios/DrawScenarioExp.hpp"
 
 class cDrawScenarioExpMACE : public cDrawScenarioExp
 {
@@ -14,3 +15,5 @@ public:
 protected:
 	virtual void BuildScene();
 };
+
+#endif

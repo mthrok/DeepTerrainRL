@@ -1,10 +1,10 @@
-#include "ScenarioTrainCacla.h"
-#include "ScenarioExpCacla.h"
-#include "util/FileUtil.h"
-#include "sim/BaseControllerCacla.h"
-#include "learning/CaclaTrainer.h"
-#include "learning/AsyncCaclaTrainer.h"
-#include "learning/ACLearner.h"
+#include "scenarios/ScenarioTrainCacla.hpp"
+#include "scenarios/ScenarioExpCacla.hpp"
+#include "util/FileUtil.hpp"
+#include "sim/BaseControllerCacla.hpp"
+#include "learning/CaclaTrainer.hpp"
+#include "learning/AsyncCaclaTrainer.hpp"
+#include "learning/ACLearner.hpp"
 
 cScenarioTrainCacla::cScenarioTrainCacla()
 {

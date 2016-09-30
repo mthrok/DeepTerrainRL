@@ -1,8 +1,10 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_SCENARIOS_DRAWSCENARIO_H_
+#define _DEEP_TERRAIN_RL_SCENARIOS_DRAWSCENARIO_H_
+
 #include <memory>
 
-#include "Scenario.h"
-#include "render/Camera.h"
+#include "scenarios/Scenario.hpp"
+#include "render/Camera.hpp"
 
 class cDrawScenario : public cScenario
 {
@@ -58,3 +60,5 @@ protected:
 	virtual void DrawCleanup();
 	virtual void DrawScene();
 };
+
+#endif

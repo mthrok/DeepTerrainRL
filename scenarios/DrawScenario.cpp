@@ -1,5 +1,5 @@
-#include "DrawScenario.h"
-#include "render/DrawUtil.h"
+#include "scenarios/DrawScenario.hpp"
+#include "render/DrawUtil.hpp"
 
 cDrawScenario::cDrawScenario(cCamera& cam)
 	: mCam(cam)

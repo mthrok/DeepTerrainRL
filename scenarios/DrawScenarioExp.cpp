@@ -1,5 +1,5 @@
-#include "DrawScenarioExp.h"
-#include "scenarios/ScenarioExp.h"
+#include "scenarios/DrawScenarioExp.hpp"
+#include "scenarios/ScenarioExp.hpp"
 
 cDrawScenarioExp::cDrawScenarioExp(cCamera& cam)
 	: cDrawScenarioSimChar(cam)

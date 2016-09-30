@@ -1,8 +1,8 @@
-#include "ScenarioPoliEval.h"
-#include "sim/NNController.h"
-#include "sim/GroundVar2D.h"
-#include "sim/DogControllerCacla.h"
-#include "util/FileUtil.h"
+#include "scenarios/ScenarioPoliEval.hpp"
+#include "sim/NNController.hpp"
+#include "sim/GroundVar2D.hpp"
+#include "sim/DogControllerCacla.hpp"
+#include "util/FileUtil.hpp"
 
 const int gNumWarmupCycles = 1;
 
@@ -12,7 +12,7 @@ cScenarioPoliEval::cScenarioPoliEval()
 	mAvgDist = 0;
 	mEpisodeCount = 0;
 	mCycleCount = 0;
-	
+
 	// analysis stuff
 	mRecordNNActivation = false;
 	mNNActivationOutputFile = "";
@@ -186,7 +186,7 @@ bool cScenarioPoliEval::BuildDogControllerCacla(std::shared_ptr<cCharController>
 {
 	bool succ = cScenarioSimChar::BuildDogControllerCacla(out_ctrl);
 	std::shared_ptr<cDogControllerCacla> dog_ctrl = std::dynamic_pointer_cast<cDogControllerCacla>(out_ctrl);
-	
+
 	if (mCriticNetFile != "")
 	{
 		bool critic_succ = dog_ctrl->LoadCriticNet(mCriticNetFile);
@@ -326,7 +326,7 @@ bool cScenarioPoliEval::EnableRecordActions() const
 void cScenarioPoliEval::RecordAction(const std::string& out_file)
 {
 	const auto& ctrl = mChar->GetController();
-	
+
 	std::string data_str = "";
 	int action_id = ctrl->GetCurrActionID();
 	data_str += std::to_string(action_id);
@@ -363,7 +363,7 @@ void cScenarioPoliEval::RecordVel(const std::string& out_file)
 	tVector vel = curr_com - mPrevCOMPos;
 	double dt = curr_time - mPrevTime;
 	vel /= dt;
-	
+
 	std::string str = std::to_string(vel[0]) + "\n";
 	cFileUtil::AppendText(str, out_file);
 

@@ -1,9 +1,10 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_SCENARIOS_SCENARIOEXP_H_
+#define _DEEP_TERRAIN_RL_SCENARIOS_SCENARIOEXP_H_
 
-#include "scenarios/ScenarioSimChar.h"
-#include "learning/ExpTuple.h"
-#include "learning/QNetTrainer.h"
-#include "sim/NNController.h"
+#include "scenarios/ScenarioSimChar.hpp"
+#include "learning/ExpTuple.hpp"
+#include "learning/QNetTrainer.hpp"
+#include "sim/NNController.hpp"
 
 class cScenarioExp : public cScenarioSimChar
 {
@@ -59,7 +60,7 @@ protected:
 
 	virtual bool BuildController(std::shared_ptr<cCharController>& out_ctrl);
 	virtual bool BuildDogControllerCacla(std::shared_ptr<cCharController>& out_ctrl) const;
-	
+
 	virtual void ResetParams();
 
 	virtual void PostSubstepUpdate(double time_step);
@@ -80,3 +81,5 @@ protected:
 	virtual void CommandRandAction();
 	virtual bool IsValidTuple() const;
 };
+
+#endif

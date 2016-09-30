@@ -1,6 +1,6 @@
-#include "ScenarioTrainMACE.h"
-#include "ScenarioExpMACE.h"
-#include "util/FileUtil.h"
+#include "scenarios/ScenarioTrainMACE.hpp"
+#include "scenarios/ScenarioExpMACE.hpp"
+#include "util/FileUtil.hpp"
 
 cScenarioTrainMACE::cScenarioTrainMACE()
 {

@@ -1,7 +1,9 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_SCENARIOS_DRAWSCENARIOPOLIEVAL_H_
+#define _DEEP_TERRAIN_RL_SCENARIOS_DRAWSCENARIOPOLIEVAL_H_
+
 #include <memory>
 
-#include "DrawScenarioSimChar.h"
+#include "scenarios/DrawScenarioSimChar.hpp"
 
 class cDrawScenarioPoliEval : public cDrawScenarioSimChar
 {
@@ -25,3 +27,5 @@ protected:
 
 	virtual void CommandAction(int a);
 };
+
+#endif

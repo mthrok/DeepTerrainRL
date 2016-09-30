@@ -1,8 +1,9 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_SCENARIOS_SCENARIOTRAINMACE_H_
+#define _DEEP_TERRAIN_RL_SCENARIOS_SCENARIOTRAINMACE_H_
 
-#include "scenarios/ScenarioTrainCacla.h"
-#include "learning/MACETrainer.h"
-#include "learning/AsyncMACETrainer.h"
+#include "scenarios/ScenarioTrainCacla.hpp"
+#include "learning/MACETrainer.hpp"
+#include "learning/AsyncMACETrainer.hpp"
 
 class cScenarioTrainMACE : public cScenarioTrain
 {
@@ -19,3 +20,5 @@ protected:
 	virtual void BuildExpScene(std::shared_ptr<cScenarioExp>& out_exp) const;
 	virtual void GetFragParams(int& out_num_frags, int& out_frag_size) const;
 };
+
+#endif

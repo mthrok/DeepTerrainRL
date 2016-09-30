@@ -1,5 +1,5 @@
-#include "DrawScenarioTrainMACE.h"
-#include "scenarios/ScenarioTrainMACE.h"
+#include "scenarios/DrawScenarioTrainMACE.hpp"
+#include "scenarios/ScenarioTrainMACE.hpp"
 
 cDrawScenarioTrainMACE::cDrawScenarioTrainMACE(cCamera& cam)
 	: cDrawScenarioTrain(cam)

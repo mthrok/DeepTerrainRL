@@ -1,8 +1,9 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_SCENARIOS_SCENARIO_H_
+#define _DEEP_TERRAIN_RL_SCENARIOS_SCENARIO_H_
 
 #include <string>
 #include <functional>
-#include "util/ArgParser.h"
+#include "util/ArgParser.hpp"
 
 class cScenario
 {
@@ -30,3 +31,5 @@ protected:
 
 	cScenario();
 };
+
+#endif

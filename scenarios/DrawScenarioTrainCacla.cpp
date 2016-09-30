@@ -1,5 +1,5 @@
-#include "DrawScenarioTrainCacla.h"
-#include "scenarios/ScenarioTrainCacla.h"
+#include "scenarios/DrawScenarioTrainCacla.hpp"
+#include "scenarios/ScenarioTrainCacla.hpp"
 
 cDrawScenarioTrainCacla::cDrawScenarioTrainCacla(cCamera& cam)
 	: cDrawScenarioTrain(cam)

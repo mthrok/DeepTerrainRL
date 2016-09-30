@@ -1,14 +1,15 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_SCENARIOS_SCENARIOSIMCHAR_H_
+#define _DEEP_TERRAIN_RL_SCENARIOS_SCENARIOSIMCHAR_H_
 
-#include "scenarios/Scenario.h"
-#include "sim/World.h"
-#include "sim/SimBox.h"
-#include "sim/SimPlane.h"
-#include "sim/SimCapsule.h"
-#include "sim/SimCharacter.h"
-#include "sim/Perturb.h"
-#include "sim/Ground.h"
-#include "sim/TerrainGen2D.h"
+#include "scenarios/Scenario.hpp"
+#include "sim/World.hpp"
+#include "sim/SimBox.hpp"
+#include "sim/SimPlane.hpp"
+#include "sim/SimCapsule.hpp"
+#include "sim/SimCharacter.hpp"
+#include "sim/Perturb.hpp"
+#include "sim/Ground.hpp"
+#include "sim/TerrainGen2D.hpp"
 
 class cScenarioSimChar : public cScenario
 {
@@ -58,14 +59,14 @@ public:
 	virtual const std::shared_ptr<cGround>& GetGround() const;
 
 	virtual void AddPerturb(const tPerturb& perturb);
-	virtual void ApplyRandForce(double min_force, double max_force, 
+	virtual void ApplyRandForce(double min_force, double max_force,
 								double min_dur, double max_dur, cSimObj* obj);
 	virtual void ApplyRandForce();
 	virtual cSimObj* RayTest(const tVector& beg, const tVector& end, tVector& out_intersection) const;
 
 	virtual void SetTerrainParamsLerp(double lerp);
 	virtual int GetNumTerrainParams() const;
-	
+
 	virtual void OutputCharState(const std::string& out_file) const;
 
 	virtual bool HasFallen() const;
@@ -101,7 +102,7 @@ protected:
 
 	bool mValidCharInitPos;
 	tVector mCharInitPos;
-	
+
 	cTerrainGen2D::eType mTerrainType;
 	std::vector<Eigen::VectorXd> mTerrainParams;
 	double mTerrainBlend;
@@ -122,9 +123,9 @@ protected:
 	virtual bool BuildDogController(std::shared_ptr<cCharController>& out_ctrl) const;
 	virtual bool BuildDogControllerCacla(std::shared_ptr<cCharController>& out_ctrl) const;
 	virtual bool BuildDogControllerMACE(std::shared_ptr<cCharController>& out_ctrl) const;
-	
+
 	virtual bool BuildGoatControllerMACE(std::shared_ptr<cCharController>& out_ctrl) const;
-	
+
 	virtual bool BuildRaptorController(std::shared_ptr<cCharController>& out_ctrl) const;
 	virtual bool BuildRaptorControllerCacla(std::shared_ptr<cCharController>& out_ctrl) const;
 	virtual bool BuildRaptorControllerMACE(std::shared_ptr<cCharController>& out_ctrl) const;
@@ -147,7 +148,7 @@ protected:
 
 	virtual void ParseCharType(const std::string& char_ctrl_str, eCharType& out_char_type) const;
 	virtual void ParseCharCtrl(const std::string& char_ctrl_str, eCharCtrl& out_char_ctrl) const;
-	virtual void ParseTerrainParams(const cArgParser& parser, cTerrainGen2D::eType& out_type, 
+	virtual void ParseTerrainParams(const cArgParser& parser, cTerrainGen2D::eType& out_type,
 									std::vector<Eigen::VectorXd>& out_params);
 
 	virtual void UpdateObjs(double time_step);
@@ -156,3 +157,5 @@ protected:
 	virtual void SpawnProjectile(double density, double min_size, double max_size,
 									double min_speed, double max_speed, double y_offset, double life_time);
 };
+
+#endif

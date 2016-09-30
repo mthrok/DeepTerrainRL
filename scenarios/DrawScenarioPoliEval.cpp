@@ -1,5 +1,5 @@
-#include "DrawScenarioPoliEval.h"
-#include "scenarios/ScenarioPoliEval.h"
+#include "scenarios/DrawScenarioPoliEval.hpp"
+#include "scenarios/ScenarioPoliEval.hpp"
 
 cDrawScenarioPoliEval::cDrawScenarioPoliEval(cCamera& cam)
 	: cDrawScenarioSimChar(cam)

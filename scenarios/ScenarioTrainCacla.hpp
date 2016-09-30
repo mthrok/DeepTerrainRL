@@ -1,6 +1,7 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_SCENARIOS_SCENARIOTRAINCACLA_H_
+#define _DEEP_TERRAIN_RL_SCENARIOS_SCENARIOTRAINCACLA_H_
 
-#include "scenarios/ScenarioTrain.h"
+#include "scenarios/ScenarioTrain.hpp"
 
 class cScenarioTrainCacla : public cScenarioTrain
 {
@@ -31,3 +32,5 @@ protected:
 	virtual void SetupTrainerCriticOutputOffsetScale();
 	virtual void SetupTrainerActorOutputOffsetScale();
 };
+
+#endif

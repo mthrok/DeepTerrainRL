@@ -1,10 +1,11 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_SCENARIOS_SCENARIOEXPMACE_H_
+#define _DEEP_TERRAIN_RL_SCENARIOS_SCENARIOEXPMACE_H_
 
-#include "scenarios/ScenarioExp.h"
-#include "learning/MACETrainer.h"
-#include "sim/DogControllerMACE.h"
-#include "sim/GoatControllerMACE.h"
-#include "sim/RaptorControllerMACE.h"
+#include "scenarios/ScenarioExp.hpp"
+#include "learning/MACETrainer.hpp"
+#include "sim/DogControllerMACE.hpp"
+#include "sim/GoatControllerMACE.hpp"
+#include "sim/RaptorControllerMACE.hpp"
 
 class cScenarioExpMACE : public cScenarioExp
 {
@@ -17,10 +18,12 @@ public:
 	virtual std::string GetName() const;
 
 protected:
-	
+
 	virtual void RecordFlagsBeg(tExpTuple& out_tuple) const;
 	virtual void RecordFlagsEnd(tExpTuple& out_tuple) const;
 
 	virtual bool CheckExpCritic() const;
 	virtual bool CheckExpActor() const;
 };
+
+#endif

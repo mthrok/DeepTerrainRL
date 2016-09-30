@@ -1,5 +1,5 @@
-#include "DrawScenarioExpMACE.h"
-#include "scenarios/ScenarioExpMACE.h"
+#include "scenarios/DrawScenarioExpMACE.hpp"
+#include "scenarios/ScenarioExpMACE.hpp"
 
 cDrawScenarioExpMACE::cDrawScenarioExpMACE(cCamera& cam)
 	: cDrawScenarioExp(cam)

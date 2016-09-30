@@ -1,7 +1,8 @@
-#pragma once
-#include <memory>
+#ifndef _DEEP_TERRAIN_RL_SCENARIOS_DRAWSCENARIOEXP_H_
+#define _DEEP_TERRAIN_RL_SCENARIOS_DRAWSCENARIOEXP_H_
 
-#include "DrawScenarioSimChar.h"
+#include <memory>
+#include "scenarios/DrawScenarioSimChar.hpp"
 
 class cDrawScenarioExp : public cDrawScenarioSimChar
 {
@@ -15,3 +16,5 @@ protected:
 	virtual void BuildScene();
 	virtual void ResetCallback();
 };
+
+#endif

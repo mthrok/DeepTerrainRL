@@ -1,13 +1,13 @@
-#include "ScenarioExp.h"
+#include "scenarios/ScenarioExp.hpp"
+#include "sim/SimDog.hpp"
+#include "sim/DogController.hpp"
+#include "sim/DogControllerCacla.hpp"
+#include "sim/DogControllerMACE.hpp"
+#include "sim/GroundFlat.hpp"
+#include "sim/GroundVar2D.hpp"
 
 #include <memory>
 #include <ctime>
-#include "sim/SimDog.h"
-#include "sim/DogController.h"
-#include "sim/DogControllerCacla.h"
-#include "sim/DogControllerMACE.h"
-#include "sim/GroundFlat.h"
-#include "sim/GroundVar2D.h"
 
 const int gNumWarmupCycles = 1;
 
@@ -47,7 +47,7 @@ void cScenarioExp::Init()
 	ResetParams();
 	mTupleBuffer.resize(mTupleBufferSize);
 	ResetTupleBuffer();
-	
+
 	EnableExplore(true);
 	SetExpRate(mExpRate);
 	SetExpTemp(mExpTemp);

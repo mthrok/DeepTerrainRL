@@ -1,5 +1,5 @@
-#include "ScenarioExpCacla.h"
-#include "learning/CaclaTrainer.h"
+#include "scenarios/ScenarioExpCacla.hpp"
+#include "learning/CaclaTrainer.hpp"
 
 cScenarioExpCacla::cScenarioExpCacla()
 {

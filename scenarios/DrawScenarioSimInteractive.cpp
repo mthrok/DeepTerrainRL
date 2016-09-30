@@ -1,6 +1,6 @@
-#include "DrawScenarioSimInteractive.h"
-#include "render/DrawUtil.h"
-#include "render/DrawPerturb.h"
+#include "scenarios/DrawScenarioSimInteractive.hpp"
+#include "render/DrawUtil.hpp"
+#include "render/DrawPerturb.hpp"
 
 const double gLinkWidth = 0.05f;
 const tVector gLineColor = tVector(0, 0, 0, 1);
@@ -46,7 +46,7 @@ void cDrawScenarioSimInteractive::MouseClick(int button, int state, double x, do
 {
 	const double ray_max_dist = 1000;
  	cDrawScenario::MouseClick(button, state, x, y);
-	
+
 	if (button == GLUT_LEFT_BUTTON)
 	{
 		if (state == GLUT_DOWN)
@@ -121,7 +121,7 @@ void cDrawScenarioSimInteractive::ApplyUIForce(double time_step)
 
 			tVector force = end - start;
 			force *= force_scale;
-			
+
 			tPerturb perturb = tPerturb(tPerturb::ePerturbForce, mSelectedObj, mSelectObjLocalPos,
 								force, time_step);
 			GetScene()->AddPerturb(perturb);

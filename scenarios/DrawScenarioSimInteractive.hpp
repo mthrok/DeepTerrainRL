@@ -1,8 +1,10 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_SCENARIOS_DRAWSCENARIOSIMINTERACTIVE_H_
+#define _DEEP_TERRAIN_RL_SCENARIOS_DRAWSCENARIOSIMINTERACTIVE_H_
+
 #include <memory>
 
-#include "DrawScenario.h"
-#include "ScenarioSimChar.h"
+#include "scenarios/DrawScenario.hpp"
+#include "scenarios/ScenarioSimChar.hpp"
 
 class cDrawScenarioSimInteractive : public cDrawScenario
 {
@@ -36,3 +38,5 @@ protected:
 	virtual bool ObjectSelected() const;
 	virtual void ApplyUIForce(double time_step);
 };
+
+#endif

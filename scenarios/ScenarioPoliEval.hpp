@@ -1,6 +1,7 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_SCENARIOS_SCENARIOPOLIEVAL_H_
+#define _DEEP_TERRAIN_RL_SCENARIOS_SCENARIOPOLIEVAL_H_
 
-#include "scenarios/ScenarioSimChar.h"
+#include "scenarios/ScenarioSimChar.hpp"
 
 class cScenarioPoliEval : public cScenarioSimChar
 {
@@ -14,9 +15,9 @@ public:
 	virtual void Init();
 	virtual void Reset();
 	virtual void Clear();
-	
+
 	virtual void Update(double time_elapsed);
-	
+
 	virtual double GetAvgDist() const;
 	virtual void ResetAvgDist();
 	virtual int GetNumEpisodes() const;
@@ -81,3 +82,5 @@ protected:
 
 	virtual bool IsValidCycle() const;
 };
+
+#endif

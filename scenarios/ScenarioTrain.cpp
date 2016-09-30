@@ -1,7 +1,7 @@
-#include "ScenarioTrain.h"
-#include <thread>
+#include "scenarios/ScenarioTrain.hpp"
+#include "sim/BaseControllerCacla.hpp"
 
-#include "sim/BaseControllerCacla.h"
+#include <thread>
 
 const double gInitCurriculumPhase = 1;
 
@@ -43,7 +43,7 @@ cScenarioTrain::~cScenarioTrain()
 void cScenarioTrain::ParseArgs(const cArgParser& parser)
 {
 	cScenario::ParseArgs(parser);
-	
+
 	parser.ParseString("policy_model", mPoliModelFile);
 	parser.ParseString("output_path", mOutputFile);
 	parser.ParseInt("trainer_max_iter", mMaxIter);
@@ -107,7 +107,7 @@ void cScenarioTrain::Run()
 		std::thread& curr_thread = threads[i];
 		curr_thread = std::thread(&cScenarioTrain::ExpHelper, this, mExpPool[i], i);
 	}
-	
+
 	for (int i = 0; i < num_threads; ++i)
 	{
 		threads[i].join();
@@ -360,7 +360,7 @@ void cScenarioTrain::UpdateTrainer(const std::vector<tExpTuple>& tuples, int exp
 
 	double exp_base_rate = CalcExpBaseRate(iters);
 	printf("Exp Base Rate: %.5f\n", exp_base_rate);
-	
+
 	if ((iters % mItersPerOutput == 0 && iters > 0) || iters == 1)
 	{
 		learner->OutputModel(mOutputFile);
@@ -378,7 +378,7 @@ void cScenarioTrain::UpdateExpScene(double time_step, cScenarioExp& out_exp,
 {
 	out_done = false;
 	out_exp.Update(time_step);
-	
+
 	if (time_step > 0)
 	{
 		bool is_full = out_exp.IsTupleBufferFull();
@@ -398,7 +398,7 @@ void cScenarioTrain::UpdateExpScene(double time_step, cScenarioExp& out_exp,
 				double exp_temp = CalcExpTemp(iters);
 				double exp_base_rate = CalcExpBaseRate(iters);
 				double curriculum_phase = CalcCurriculumPhase(iters);
-				
+
 				out_exp.SetExpRate(exp_rate);
 				out_exp.SetExpTemp(exp_temp);
 				out_exp.SetExpBaseActionRate(exp_base_rate);

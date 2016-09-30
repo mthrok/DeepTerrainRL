@@ -23,9 +23,19 @@ endif()
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+
+################################################################################
+include_directories(${PROJECT_SOURCE_DIR})
+
 # Util module
 AUX_SOURCE_DIRECTORY(util UTIL_SOURCES)
 add_library(Util ${UTIL_SOURCES})
+
+################################################################################
+include_directories("${PROJECT_SOURCE_DIR}/external/Bullet/src")
+include_directories("${PROJECT_SOURCE_DIR}/external/caffe/src")
+include_directories("${PROJECT_SOURCE_DIR}/external/caffe/include")
+include_directories("${PROJECT_SOURCE_DIR}/external/caffe/build/src")
 
 # Anim Module
 AUX_SOURCE_DIRECTORY(anim ANIM_SOURCES)
@@ -43,11 +53,7 @@ add_library(Sim ${SIM_SOURCES})
 AUX_SOURCE_DIRECTORY(render RENDER_SOURCES)
 add_library(Render ${RENDER_SOURCES})
 
-include_directories("${PROJECT_SOURCE_DIR}/external/Bullet/src")
-
-include_directories("${PROJECT_SOURCE_DIR}/external/caffe/src")
-include_directories("${PROJECT_SOURCE_DIR}/external/caffe/include")
-include_directories("${PROJECT_SOURCE_DIR}/external/caffe/build/src")
-
-
-include_directories(${PROJECT_SOURCE_DIR})
+################################################################################
+# Scenario Module
+AUX_SOURCE_DIRECTORY(scenarios SCENARIO_SOURCES)
+add_library(Scenario ${SCENARIO_SOURCES})

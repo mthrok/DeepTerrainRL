@@ -1,4 +1,4 @@
-#include "DrawScenarioTrain.h"
+#include "scenarios/DrawScenarioTrain.hpp"
 
 cDrawScenarioTrain::cDrawScenarioTrain(cCamera& cam)
 	: cDrawScenarioSimChar(cam)
@@ -18,7 +18,7 @@ void cDrawScenarioTrain::Init()
 	mTrain->SetExpPoolSize(1);
 	mTrain->ParseArgs(mArgParser);
 	mTrain->Init();
-	
+
 	mScene = mTrain->GetExpScene(0);
 	tCallbackFunc func = std::bind(&cDrawScenarioTrain::ResetCallback, this);
 	mScene->SetResetCallback(func);

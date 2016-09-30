@@ -1,7 +1,9 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_SCENARIOS_DRAWSCENARIOTRAINCACLA_H_
+#define _DEEP_TERRAIN_RL_SCENARIOS_DRAWSCENARIOTRAINCACLA_H_
+
 #include <memory>
 
-#include "DrawScenarioTrain.h"
+#include "scenarios/DrawScenarioTrain.hpp"
 
 class cDrawScenarioTrainCacla: public cDrawScenarioTrain
 {
@@ -15,3 +17,5 @@ protected:
 
 	virtual void BuildTrainScene(std::shared_ptr<cScenarioTrain>& out_scene) const;
 };
+
+#endif

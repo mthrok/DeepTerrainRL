@@ -1,9 +1,10 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_SCENARIOS_SCENARIOTRAIN_H_
+#define _DEEP_TERRAIN_RL_SCENARIOS_SCENARIOTRAIN_H_
 
-#include "scenarios/Scenario.h"
-#include "scenarios/ScenarioExp.h"
-#include "learning/QNetTrainer.h"
-#include "learning/AsyncQNetTrainer.h"
+#include "scenarios/Scenario.hpp"
+#include "scenarios/ScenarioExp.hpp"
+#include "learning/QNetTrainer.hpp"
+#include "learning/AsyncQNetTrainer.hpp"
 #include <mutex>
 
 class cScenarioTrain : public cScenario
@@ -76,13 +77,13 @@ protected:
 	virtual void ClearScenePool();
 	virtual void ResetScenePool();
 	virtual void ResetLearners();
-	
+
 	virtual void BuildExpScene(std::shared_ptr<cScenarioExp>& out_exp) const;
 
 	virtual void InitTrainer();
 	virtual void InitLearners();
 	virtual void SetupLearner(const std::shared_ptr<cSimCharacter>& character, std::shared_ptr<cNeuralNetLearner>& out_learner) const;
-	
+
 	virtual const std::shared_ptr<cCharController>& GetRefController() const;
 
 	virtual void BuildTrainer(std::shared_ptr<cTrainerInterface>& out_trainer);
@@ -94,7 +95,7 @@ protected:
 	virtual void UpdateExpScene(double time_step, cScenarioExp& out_exp, int exp_id);
 	virtual void UpdateExpScene(double time_step, cScenarioExp& out_exp, int exp_id, bool& out_done);
 	virtual void UpdateSceneCurriculum(double phase, cScenarioExp& out_exp);
-	
+
 	virtual double CalcExpRate(int iter) const;
 	virtual double CalcExpTemp(int iter) const;
 	virtual double CalcExpBaseRate(int iter) const;
@@ -105,3 +106,5 @@ protected:
 
 	virtual void ExpHelper(std::shared_ptr<cScenarioExp> exp, int exp_id);
 };
+
+#endif

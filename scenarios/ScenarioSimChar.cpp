@@ -1,18 +1,18 @@
-#include "ScenarioSimChar.h"
+#include "scenarios/ScenarioSimChar.hpp"
+#include "sim/SimDog.hpp"
+#include "sim/SimRaptor.hpp"
+#include "sim/DogControllerQ.hpp"
+#include "sim/DogControllerCacla.hpp"
+#include "sim/DogControllerMACE.hpp"
+#include "sim/GoatControllerMACE.hpp"
+#include "sim/RaptorControllerQ.hpp"
+#include "sim/RaptorControllerCacla.hpp"
+#include "sim/RaptorControllerMACE.hpp"
+#include "sim/GroundFlat.hpp"
+#include "sim/GroundVar2D.hpp"
 
 #include <memory>
 #include <ctime>
-#include "sim/SimDog.h"
-#include "sim/SimRaptor.h"
-#include "sim/DogControllerQ.h"
-#include "sim/DogControllerCacla.h"
-#include "sim/DogControllerMACE.h"
-#include "sim/GoatControllerMACE.h"
-#include "sim/RaptorControllerQ.h"
-#include "sim/RaptorControllerCacla.h"
-#include "sim/RaptorControllerMACE.h"
-#include "sim/GroundFlat.h"
-#include "sim/GroundVar2D.h"
 
 //#define SIM_CHAR_PROFILER
 
@@ -160,7 +160,7 @@ void cScenarioSimChar::Update(double time_elapsed)
 	double update_step = time_elapsed / mNumUpdateSteps;
 	int num_update_steps = (time_elapsed == 0) ? 1 : mNumUpdateSteps;
 	for (int i = 0; i < num_update_steps; ++i)
-	{  
+	{
 		PreSubstepUpdate(update_step);
 
 		// order matters!
@@ -206,7 +206,7 @@ void cScenarioSimChar::AddPerturb(const tPerturb& perturb)
 	mWorld->AddPerturb(perturb);
 }
 
-void cScenarioSimChar::ApplyRandForce(double min_force, double max_force, 
+void cScenarioSimChar::ApplyRandForce(double min_force, double max_force,
 									double min_dur, double max_dur, cSimObj* obj)
 {
 	assert(obj != nullptr);
@@ -346,7 +346,7 @@ void cScenarioSimChar::BuildGround()
 	std::shared_ptr<cGroundVar2D> ground_var2d = std::shared_ptr<cGroundVar2D>(new cGroundVar2D());
 
 	auto terrain_func = cTerrainGen2D::GetTerrainFunc(mTerrainType);
-	
+
 	cGroundVar2D::tParams params;
 	double char_view_dist = 10;
 	params.mSegmentWidth = 2 * char_view_dist;
@@ -365,9 +365,9 @@ void cScenarioSimChar::BuildGround()
 	{
 		SetTerrainParamsLerp(mTerrainBlend);
 	}
-	
+
 	ground_var2d->Init(mWorld, params, bound_min, bound_max);
-	
+
 	//std::shared_ptr<cGroundFlat> ground_flat = std::shared_ptr<cGroundFlat>(new cGroundFlat());
 	//cGroundFlat::tParams params;
 	//ground_flat->Init(mWorld, params);
@@ -414,7 +414,7 @@ bool cScenarioSimChar::BuildController(std::shared_ptr<cCharController>& out_ctr
 		assert(false && "Failed Building Unsupported Controller"); // unsupported controller
 		break;
 	}
-	
+
 	return succ;
 }
 
@@ -527,7 +527,7 @@ void cScenarioSimChar::CreateCharacter(std::shared_ptr<cSimCharacter>& out_char)
 tVector cScenarioSimChar::GetDefaultCharPos() const
 {
 	Eigen::Vector4d out = tVector::Zero();
-	
+
 	if (mValidCharInitPos)
 	{
 		out[0] = mCharInitPos[0];
@@ -602,7 +602,7 @@ double cScenarioSimChar::GetViewDist() const
 {
 	const std::shared_ptr<cSimCharacter>& character = GetCharacter();
 	const std::shared_ptr<cCharController>& ctrl = character->GetController();
-	
+
 	double view_dist = 0;
 	if (ctrl != nullptr)
 	{
@@ -667,7 +667,7 @@ void cScenarioSimChar::ParseCharCtrl(const std::string& char_ctrl_str, eCharCtrl
 	}
 }
 
-void cScenarioSimChar::ParseTerrainParams(const cArgParser& parser, cTerrainGen2D::eType& out_type, 
+void cScenarioSimChar::ParseTerrainParams(const cArgParser& parser, cTerrainGen2D::eType& out_type,
 											std::vector<Eigen::VectorXd>& out_params)
 {
 	std::string terrain_file = "";
@@ -810,6 +810,6 @@ void cScenarioSimChar::SpawnProjectile(double density, double min_size, double m
 	tObjEntry obj_entry;
 	obj_entry.mObj = box;
 	obj_entry.mEndTime = mTime + life_time;
-	
+
 	mObjs.push_back(obj_entry);
 }

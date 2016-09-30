@@ -1,11 +1,11 @@
-#include "DrawScenarioSimChar.h"
-#include "sim/BaseControllerMACE.h"
-#include "render/DrawUtil.h"
-#include "render/DrawObj.h"
-#include "render/DrawWorld.h"
-#include "render/DrawSimCharacter.h"
-#include "render/DrawPerturb.h"
-#include "render/DrawGround.h"
+#include "scenarios/DrawScenarioSimChar.hpp"
+#include "sim/BaseControllerMACE.hpp"
+#include "render/DrawUtil.hpp"
+#include "render/DrawObj.hpp"
+#include "render/DrawWorld.hpp"
+#include "render/DrawSimCharacter.hpp"
+#include "render/DrawPerturb.hpp"
+#include "render/DrawGround.hpp"
 
 const double gLinkWidth = 0.05f;
 const tVector gLineColor = tVector(0, 0, 0, 1);
@@ -38,7 +38,7 @@ void cDrawScenarioSimChar::Init()
 	BuildScene();
 	mScene->ParseArgs(mArgParser);
 	mScene->Init();
-	
+
 	mEnableTrace = false;
 	InitTracer();
 }
@@ -72,7 +72,7 @@ void cDrawScenarioSimChar::Update(double time_elapsed)
 	{
 		UpdateTracer(time_elapsed);
 	}
-	
+
 	UpdateCamera();
 }
 
@@ -164,7 +164,7 @@ tVector cDrawScenarioSimChar::GetCamStillPos() const
 {
 	const auto& character = mScene->GetCharacter();
 	tVector char_pos = character->CalcCOM();
-	
+
 	double cam_w = mCam.GetWidth();
 	double cam_h = mCam.GetHeight();
 	const auto& ground = mScene->GetGround();
@@ -317,7 +317,7 @@ void cDrawScenarioSimChar::DrawObjsMainScene()
 void cDrawScenarioSimChar::DrawGround() const
 {
 	const auto& ground = mScene->GetGround();
-	
+
 	tVector focus = mCam.GetFocus();
 	double cam_w = mCam.GetWidth();
 	double cam_h = mCam.GetHeight();
@@ -424,7 +424,7 @@ void cDrawScenarioSimChar::DrawFeatures() const
 	const auto& character = mScene->GetCharacter();
 	const auto& ground = mScene->GetGround();
 
-	cDrawSimCharacter::DrawCharFeatures(*(character.get()), *ground.get(), 
+	cDrawSimCharacter::DrawCharFeatures(*(character.get()), *ground.get(),
 						marker_size, vel_scale, pos_col, vel_col, GetVisOffset());
 	cDrawSimCharacter::DrawTerainFeatures(*(character.get()), marker_size, terrain_col, GetVisOffset());
 }

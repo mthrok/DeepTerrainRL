@@ -1,10 +1,12 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_SCENARIOS_DRAWSCENARIOSIMCHAR_H_
+#define _DEEP_TERRAIN_RL_SCENARIOS_DRAWSCENARIOSIMCHAR_H_
+
 #include <memory>
 #include <GL/glew.h>
 
-#include "DrawScenarioSimInteractive.h"
-#include "ScenarioSimChar.h"
-#include "sim/CharTracer.h"
+#include "scenarios/DrawScenarioSimInteractive.hpp"
+#include "ScenarioSimChar.hpp"
+#include "sim/CharTracer.hpp"
 
 class cShader;
 class cSkyBox;
@@ -92,3 +94,5 @@ protected:
 	virtual void SpawnProjectile();
 	virtual void SpawnBigProjectile();
 };
+
+#endif

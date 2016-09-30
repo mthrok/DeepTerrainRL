@@ -1,5 +1,5 @@
-#include "DrawScenarioExpCacla.h"
-#include "scenarios/ScenarioExpCacla.h"
+#include "scenarios/DrawScenarioExpCacla.hpp"
+#include "scenarios/ScenarioExpCacla.hpp"
 
 cDrawScenarioExpCacla::cDrawScenarioExpCacla(cCamera& cam)
 	: cDrawScenarioExp(cam)

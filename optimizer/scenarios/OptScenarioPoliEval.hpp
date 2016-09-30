@@ -1,8 +1,9 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_OPTIMIZER_SCENARIOS_OPTSCENARIOPOLIEVAL_H_
+#define _DEEP_TERRAIN_RL_OPTIMIZER_SCENARIOS_OPTSCENARIOPOLIEVAL_H_
 
 #include <string>
 #include <mutex>
-#include "scenarios/ScenarioPoliEval.h"
+#include "scenarios/ScenarioPoliEval.hpp"
 
 class cOptScenarioPoliEval : public cScenario
 {
@@ -54,3 +55,5 @@ protected:
 
 	virtual void OutputResults(const std::string& out_file) const;
 };
+
+#endif

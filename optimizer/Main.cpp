@@ -1,11 +1,11 @@
 #include <memory>
 #include <signal.h>
 
-#include "scenarios/ScenarioTrain.h"
-#include "scenarios/ScenarioTrainCacla.h"
-#include "scenarios/ScenarioTrainMACE.h"
-#include "scenarios/OptScenarioPoliEval.h"
-#include "util/ArgParser.h"
+#include "scenarios/ScenarioTrain.hpp"
+#include "scenarios/ScenarioTrainCacla.hpp"
+#include "scenarios/ScenarioTrainMACE.hpp"
+#include "scenarios/OptScenarioPoliEval.hpp"
+#include "util/ArgParser.hpp"
 
 // arg parser
 cArgParser gArgParser;

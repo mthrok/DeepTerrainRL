@@ -4,9 +4,15 @@ project (DeepTerrainRL)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
+#OpenGL
+find_package(OpenGL REQUIRED)
+
 # GLEW
 find_package(GLEW REQUIRED)
 include_directories(${GLEW_INCLUDE_DIR})
+
+# GLUT
+find_package(GLUT REQUIRED)
 
 # GLOG
 find_package(GLOG REQUIRED)
@@ -92,3 +98,8 @@ add_library(OptScenario ${OPT_SCENARIO_SOURCES})
 
 add_executable(Optimizer optimizer/Main.cpp)
 target_link_libraries(Optimizer ${DEPENDENCIES} Util Scenario Sim Learning Render Anim OptScenario)
+
+################################################################################
+# Build Visualizer
+add_executable(Visualizer Main.cpp)
+target_link_libraries(Visualizer ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${DEPENDENCIES} ${GLUT_LIBRARY} Util Scenario Sim Learning Render Anim OptScenario)

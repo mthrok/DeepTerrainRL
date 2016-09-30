@@ -1,20 +1,20 @@
 #include <iostream>
 #include <caffe/caffe.hpp>
 
-#include "util/FileUtil.h"
-#include "util/ArgParser.h"
-#include "scenarios/DrawScenarioSimChar.h"
-#include "scenarios/DrawScenarioExp.h"
-#include "scenarios/DrawScenarioExpCacla.h"
-#include "scenarios/DrawScenarioExpMACE.h"
-#include "scenarios/DrawScenarioTrain.h"
-#include "scenarios/DrawScenarioTrainCacla.h"
-#include "scenarios/DrawScenarioTrainMACE.h"
-#include "scenarios/DrawScenarioPoliEval.h"
+#include "util/FileUtil.hpp"
+#include "util/ArgParser.hpp"
+#include "scenarios/DrawScenarioSimChar.hpp"
+#include "scenarios/DrawScenarioExp.hpp"
+#include "scenarios/DrawScenarioExpCacla.hpp"
+#include "scenarios/DrawScenarioExpMACE.hpp"
+#include "scenarios/DrawScenarioTrain.hpp"
+#include "scenarios/DrawScenarioTrainCacla.hpp"
+#include "scenarios/DrawScenarioTrainMACE.hpp"
+#include "scenarios/DrawScenarioPoliEval.hpp"
 
-#include "render/Camera.h"
-#include "render/DrawUtil.h"
-#include "render/TextureDesc.h"
+#include "render/Camera.hpp"
+#include "render/DrawUtil.hpp"
+#include "render/TextureDesc.hpp"
 
 // Dimensions of the window we are drawing into.
 int gWinWidth = 800;
@@ -379,7 +379,7 @@ void Animate(int callback_val)
 	{
 		int num_steps = GetNumTimeSteps();
 		int timer_step = CalcDisplayAnimTime();
-		
+
 		glutTimerFunc(timer_step, Animate, 0);
 
 		int current_time = glutGet(GLUT_ELAPSED_TIME);
@@ -391,7 +391,7 @@ void Animate(int callback_val)
 		{
 			Update(timestep);
 		}
-		
+
 		glutPostRedisplay();
 		gUpdatesPerSec = num_steps / (elapsedTime * 0.001);
 	}
@@ -450,7 +450,7 @@ void Keyboard(unsigned char key, int x, int y) {
 	bool update = false;
 	switch (key) {
 		// Quit.
-#ifndef _LINUX_
+#ifdef _WIN32
 	case CTRL_CLOSE_EVENT:
 	case CTRL_C_EVENT:
 #endif
@@ -566,4 +566,3 @@ int main(int argc, char** argv)
 
 	return EXIT_SUCCESS;
 }
-

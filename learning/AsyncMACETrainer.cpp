@@ -1,5 +1,5 @@
-#include "AsyncMACETrainer.h"
-#include "MACETrainer.h"
+#include "learning/AsyncMACETrainer.hpp"
+#include "learning/MACETrainer.hpp"
 
 cAsyncMACETrainer::cAsyncMACETrainer()
 {

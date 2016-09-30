@@ -1,7 +1,9 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_LEARNING_TRAINERINTERFACE_H_
+#define _DEEP_TERRAIN_RL_LEARNING_TRAINERINTERFACE_H_
+
 #include <string>
-#include "NeuralNet.h"
-#include "NeuralNetLearner.h"
+#include "learning/NeuralNet.hpp"
+#include "learning/NeuralNetLearner.hpp"
 
 //#define OUTPUT_TRAINER_LOG
 
@@ -36,7 +38,7 @@ public:
 
 		tParams();
 	};
-	
+
 	virtual ~cTrainerInterface();
 	virtual void Init(const tParams& params) = 0;
 	virtual void Train() = 0;
@@ -90,3 +92,5 @@ protected:
 
 	cTrainerInterface();
 };
+
+#endif

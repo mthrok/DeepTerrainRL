@@ -1,5 +1,5 @@
-#include "NNSolver.h"
-#include "AsyncSolver.h"
+#include "learning/NNSolver.hpp"
+#include "learning/AsyncSolver.hpp"
 
 void cNNSolver::BuildSolver(const std::string& solver_file, std::shared_ptr<cNNSolver>& out_solver)
 {

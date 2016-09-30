@@ -1,8 +1,10 @@
-#pragma once
-#include "NeuralNet.h"
+#ifndef _DEEP_TERRAIN_RL_LEARNING_NNSOLVER_H_
+#define _DEEP_TERRAIN_RL_LEARNING_NNSOLVER_H_
+
 #include <caffe/net.hpp>
 #include <caffe/caffe.hpp>
 #include <caffe/sgd_solvers.hpp>
+#include "learning/NeuralNet.hpp"
 
 class cNNSolver
 {
@@ -27,7 +29,7 @@ public:
 		: cNNSolver(),
 		  tSolverType(param) {};
 	virtual ~cCaffeSolver() {};
-	
+
 	virtual boost::shared_ptr<caffe::Net<cNeuralNet::tNNData>> GetNet();
 	virtual void ApplySteps(int iters);
 	virtual cNeuralNet::tNNData ForwardBackward();
@@ -58,3 +60,5 @@ typedef cCaffeSolver<caffe::AdaGradSolver<cNeuralNet::tNNData>> cAdaGradSolver;
 typedef cCaffeSolver<caffe::RMSPropSolver<cNeuralNet::tNNData>> cRMSPropSolver;
 typedef cCaffeSolver<caffe::AdaDeltaSolver<cNeuralNet::tNNData>> cAdaDeltaSolver;
 typedef cCaffeSolver<caffe::AdamSolver<cNeuralNet::tNNData>> cAdamSolver;
+
+#endif

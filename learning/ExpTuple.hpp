@@ -1,12 +1,13 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_LEARNING_EXPTUPLE_H_
+#define _DEEP_TERRAIN_RL_LEARNING_EXPTUPLE_H_
 
-#include "util/MathUtil.h"
+#include "util/MathUtil.hpp"
 
 struct tExpTuple
 {
 public:
 	static bool TestFlag(unsigned int flag, int idx);
-	
+
 	tExpTuple();
 	tExpTuple(int state_size, int action_size);
 
@@ -21,3 +22,5 @@ public:
 	Eigen::VectorXd mAction;
 	Eigen::VectorXd mStateEnd;
 };
+
+#endif

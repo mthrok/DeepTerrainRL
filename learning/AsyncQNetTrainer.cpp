@@ -1,5 +1,5 @@
-#include "AsyncQNetTrainer.h"
-#include "QNetTrainer.h"
+#include "learning/AsyncQNetTrainer.hpp"
+#include "learning/QNetTrainer.hpp"
 
 cAsyncQNetTrainer::cAsyncQNetTrainer()
 {

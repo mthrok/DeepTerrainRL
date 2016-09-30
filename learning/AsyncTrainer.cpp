@@ -1,5 +1,5 @@
-#include "AsyncTrainer.h"
-#include "util/FileUtil.h"
+#include "learning/AsyncTrainer.hpp"
+#include "util/FileUtil.hpp"
 
 const std::string gLogFile = "output/logs/async_trainer_log.txt";
 
@@ -17,7 +17,7 @@ void cAsyncTrainer::Init(const tParams& params)
 	mParams = params;
 	mDone = false;
 	cParamServer::Init();
-	
+
 	for (int i = 0; i < GetNumTrainers(); ++i)
 	{
 		mTrainers[i]->Init(mParams);
@@ -317,7 +317,7 @@ void cAsyncTrainer::WriteLog(const std::string& log_file) const
 	FILE* f = cFileUtil::OpenFile(log_file, "w");
 
 	comb_log.Write(f);
-	
+
 	fprintf(f, "Async Max Total Time: %.10fs\n", max_time);
 	fprintf(f, "Async Wait Time: %.10fs\n", async_wait_time);
 	fprintf(f, "Async Wait Samples: %i\n", async_wait_samples);

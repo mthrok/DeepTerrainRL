@@ -1,7 +1,9 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_LEARNING_PARAMSERVER_H_
+#define _DEEP_TERRAIN_RL_LEARNING_PARAMSERVER_H_
+
 #include <mutex>
-#include "NeuralNet.h"
-#include "TrainerInterface.h"
+#include "learning/NeuralNet.hpp"
+#include "learning/TrainerInterface.hpp"
 
 class cParamServer
 {
@@ -46,15 +48,15 @@ public:
 
 	virtual void LockEntry(int id);
 	virtual void UnlockEntry(int id);
-	
+
 protected:
 	std::vector<tNetEntry> mPool;
 
 	int mTupleCount;
-	
+
 	cParamServer();
 	virtual void BuildNetPool() = 0;
-	
+
 #if defined(OUTPUT_TRAINER_LOG)
 public:
 	struct tLog
@@ -72,3 +74,5 @@ protected:
 	virtual void InitLog();
 #endif
 };
+
+#endif

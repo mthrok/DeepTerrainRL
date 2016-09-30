@@ -1,6 +1,7 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_LEARNING_QNETTRAINER_H_
+#define _DEEP_TERRAIN_RL_LEARNING_QNETTRAINER_H_
 
-#include "learning/NeuralNetTrainer.h"
+#include "learning/NeuralNetTrainer.hpp"
 
 class cQNetTrainer : public cNeuralNetTrainer
 {
@@ -42,3 +43,5 @@ protected:
 	virtual void SetTuple(int t, const tExpTuple& tuple);
 	virtual tExpTuple GetTuple(int t) const;
 };
+
+#endif

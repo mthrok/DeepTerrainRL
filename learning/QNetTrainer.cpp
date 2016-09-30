@@ -1,5 +1,5 @@
-#include "QNetTrainer.h"
-#include "util/FileUtil.h"
+#include "learning/QNetTrainer.hpp"
+#include "util/FileUtil.hpp"
 
 //#define FREEZE_TARGET_NET
 
@@ -24,7 +24,7 @@ int cQNetTrainer::AddTuple(const tExpTuple& tuple)
 	return cNeuralNetTrainer::AddTuple(tuple);
 }
 
-void cQNetTrainer::BuildProblemY(int net_id, const std::vector<int>& tuple_ids, 
+void cQNetTrainer::BuildProblemY(int net_id, const std::vector<int>& tuple_ids,
 								const Eigen::MatrixXd& X, cNeuralNet::tProblem& out_prob)
 {
 	int num_data = static_cast<int>(tuple_ids.size());
@@ -52,7 +52,7 @@ void cQNetTrainer::BuildProblemY(int net_id, const std::vector<int>& tuple_ids,
 	{
 		int t = tuple_ids[i];
 		tExpTuple tuple = GetTuple(t);
-		
+
 		double new_q = 0;
 		double r = tuple.mReward;
 
@@ -91,7 +91,7 @@ void cQNetTrainer::BuildTupleY(int net_id, const tExpTuple& tuple, Eigen::Vector
 	double discount = GetDiscount();
 	double norm = CalcDiscountNorm(discount);
 	r *= norm;
-	
+
 	int action_idx = 0;
 	tuple.mAction.maxCoeff(&action_idx);
 

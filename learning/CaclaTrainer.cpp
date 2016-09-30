@@ -1,7 +1,7 @@
-#include "CaclaTrainer.h"
-#include "util/FileUtil.h"
-#include "QNetTrainer.h"
-#include "ACLearner.h"
+#include "learning/CaclaTrainer.hpp"
+#include "util/FileUtil.hpp"
+#include "learning/QNetTrainer.hpp"
+#include "learning/ACLearner.hpp"
 
 //#define DISABLE_EXP_BUFFER
 
@@ -142,7 +142,7 @@ bool cCaclaTrainer::Step()
 	{
 		UpdateTargetNet();
 	}
-	
+
 	return succ;
 }
 
@@ -242,7 +242,7 @@ void cCaclaTrainer::CalcNewCumulativeRewardBatch(int net_id, const std::vector<i
 	{
 		int t = tuple_ids[i];
 		tExpTuple tuple = GetTuple(t);
-		
+
 		Eigen::VectorXd x_next;
 		BuildCriticXNext(tuple, x_next);
 		mBatchXBuffer.row(i) = x_next;
@@ -315,7 +315,7 @@ void cCaclaTrainer::BuildActorProblemYTD(const std::vector<int>& tuple_ids, cons
 
 		printf("TD: %.5f\n", td);
 		td *= mTDScale;
-		
+
 		Eigen::VectorXd curr_action = out_prob.mY.row(i);
 		Eigen::VectorXd new_action;
 		BuildTupleActorY(tuple, new_action);
@@ -379,7 +379,7 @@ void cCaclaTrainer::UpdateActorBatchBuffer()
 		{
 			int t = mBatchBuffer[i];
 			double td = td_buffer[i];
-			
+
 			mActorBatchBuffer.push_back(t);
 			mActorBatchTDBuffer.push_back(td);
 		}
@@ -484,7 +484,7 @@ void cCaclaTrainer::ProcessPoliGrad(const Eigen::VectorXd& action, Eigen::Vector
 
 		double bound_min = mActionMin[i];
 		double bound_max = mActionMax[i];
-		
+
 		if (diff_val > 0 && tar_val > bound_max)
 		{
 			diff_val = bound_max - action_val;

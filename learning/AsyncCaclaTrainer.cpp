@@ -1,5 +1,5 @@
-#include "AsyncCaclaTrainer.h"
-#include "CaclaTrainer.h"
+#include "learning/AsyncCaclaTrainer.hpp"
+#include "learning/CaclaTrainer.hpp"
 
 cAsyncCaclaTrainer::cAsyncCaclaTrainer()
 {

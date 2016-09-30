@@ -1,5 +1,7 @@
-#pragma once
-#include "NNSolver.h"
+#ifndef _DEEP_TERRAIN_RL_LEARNING_ASYNCSOLVER_H_
+#define _DEEP_TERRAIN_RL_LEARNING_ASYNCSOLVER_H_
+
+#include "learning/NNSolver.hpp"
 
 template <typename tSolverType>
 class cSolverAsync : public cCaffeSolver<tSolverType>
@@ -45,3 +47,5 @@ typedef cSolverAsync<caffe::AdaGradSolver<cNeuralNet::tNNData>> cAdaGradSolverAs
 typedef cSolverAsync<caffe::RMSPropSolver<cNeuralNet::tNNData>> cRMSPropSolverAsync;
 typedef cSolverAsync<caffe::AdaDeltaSolver<cNeuralNet::tNNData>> cAdaDeltaSolverAsync;
 typedef cSolverAsync<caffe::AdamSolver<cNeuralNet::tNNData>> cAdamSolverAsync;
+
+#endif

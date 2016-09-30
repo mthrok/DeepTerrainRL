@@ -1,6 +1,7 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_LEARNING_ACLEARNER_H_
+#define _DEEP_TERRAIN_RL_LEARNING_ACLEARNER_H_
 
-#include "NeuralNetLearner.h"
+#include "learning/NeuralNetLearner.hpp"
 
 struct cACLearner : public cNeuralNetLearner
 {
@@ -34,3 +35,5 @@ public:
 protected:
 	cNeuralNet* mCriticNet;
 };
+
+#endif

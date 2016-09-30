@@ -1,4 +1,4 @@
-#include "TrainerInterface.h"
+#include "learning/TrainerInterface.hpp"
 
 
 cTrainerInterface::tParams::tParams()

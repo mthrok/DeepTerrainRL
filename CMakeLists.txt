@@ -4,6 +4,11 @@ project (DeepTerrainRL)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
+# GLEW
+find_package(GLEW REQUIRED)
+MESSAGE(${GLEW_INCLUDE_DIR})
+include_directories(${GLEW_INCLUDE_DIR})
+
 # Eigen 3
 find_package(Eigen3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
@@ -26,9 +31,14 @@ add_library(Util ${UTIL_SOURCES})
 AUX_SOURCE_DIRECTORY(anim ANIM_SOURCES)
 add_library(Anim ${ANIM_SOURCES})
 
+# Learning Module
+AUX_SOURCE_DIRECTORY(learning LEARNING_SOURCES)
+add_library(Learning ${LEARNING_SOURCES})
+
 # Sim Module
 AUX_SOURCE_DIRECTORY(sim SIM_SOURCES)
 add_library(Sim ${SIM_SOURCES})
+
 include_directories("${PROJECT_SOURCE_DIR}/external/Bullet/src")
 
 include_directories("${PROJECT_SOURCE_DIR}/external/caffe/src")

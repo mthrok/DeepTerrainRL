@@ -1,6 +1,7 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_LEARNING_ASYNACTRAINER_H_
+#define _DEEP_TERRAIN_RL_LEARNING_ASYNACTRAINER_H_
 
-#include "learning/AsyncTrainer.h"
+#include "learning/AsyncTrainer.hpp"
 
 class cAsyncACTrainer : public cAsyncTrainer
 {
@@ -26,7 +27,7 @@ public:
 	virtual bool HasInitModel() const;
 	virtual bool HasCriticInitModel() const;
 	virtual bool HasActorInitModel() const;
-	
+
 	virtual int GetInputSize() const;
 	virtual int GetOutputSize() const;
 	virtual int GetCriticInputSize() const;
@@ -55,9 +56,11 @@ protected:
 	virtual void SetupCriticNet(int id);
 	virtual void SetupActorNet(int id);
 	virtual void SetupTrainer(std::shared_ptr<cNeuralNetTrainer>& out_trainer);
-	
+
 	virtual int IsCritic(int id) const;
 	virtual int IsActor(int id) const;
 	virtual int GetNumCritics() const;
 	virtual int GetNumActors() const;
 };
+
+#endif

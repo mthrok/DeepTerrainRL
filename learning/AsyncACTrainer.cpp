@@ -1,5 +1,5 @@
-#include "AsyncACTrainer.h"
-#include "ACTrainer.h"
+#include "learning/AsyncACTrainer.hpp"
+#include "learning/ACTrainer.hpp"
 
 cAsyncACTrainer::cAsyncACTrainer()
 {

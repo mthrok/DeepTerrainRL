@@ -1,8 +1,8 @@
-#include "ACTrainer.h"
-#include "util/FileUtil.h"
-#include "util/Util.h"
-#include "QNetTrainer.h"
-#include "ACLearner.h"
+#include "learning/ACTrainer.hpp"
+#include "util/FileUtil.hpp"
+#include "util/Util.hpp"
+#include "learning/QNetTrainer.hpp"
+#include "learning/ACLearner.hpp"
 
 std::string cACTrainer::GetCriticFilename(const std::string& actor_filename)
 {
@@ -221,7 +221,7 @@ void cACTrainer::InitStage()
 	{
 		InitAvgReward();
 	}
-	
+
 	cNeuralNetTrainer::InitStage();
 }
 
@@ -325,7 +325,7 @@ void cACTrainer::UpdateAvgReward(const std::vector<int>& tuple_ids)
 		avg_reward += r;
 	}
 	avg_reward /= num_data;
-	
+
 	mAvgReward += mParams.mAvgRewardStep * (avg_reward - mAvgReward);
 }
 
@@ -665,7 +665,7 @@ void cACTrainer::UpdateActorNet(const cNeuralNet::tProblem& prob)
 
 		double loss = curr_net->ForwardBackward(prob);
 		printf("Actor Net Loss: %.8f\n", loss);
-		
+
 		cParamServer::tInputInfo server_input;
 		server_input.mID = net_id;
 		server_input.mGradNet = curr_net.get();
@@ -694,7 +694,7 @@ void cACTrainer::BuildActorProblem(cNeuralNet::tProblem& out_prob)
 	int num_data = GetActorBatchSize();
 	int buffer_size = static_cast<int>(mActorBatchBuffer.size());
 	assert(buffer_size >= num_data);
-	
+
 #if defined(OUTPUT_TRAINER_LOG)
 	TIMER_RECORD_BEG(BUILD_ACTOR_TUPLE_X)
 #endif

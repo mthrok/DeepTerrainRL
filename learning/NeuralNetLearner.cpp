@@ -1,5 +1,5 @@
-#include "NeuralNetLearner.h"
-#include "NeuralNetTrainer.h"
+#include "learning/NeuralNetLearner.hpp"
+#include "learning/NeuralNetTrainer.hpp"
 
 cNeuralNetLearner::cNeuralNetLearner(const std::shared_ptr<cNeuralNetTrainer>& trainer)
 {

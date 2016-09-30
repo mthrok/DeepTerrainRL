@@ -1,5 +1,5 @@
-#include "ParamServer.h"
-#include "util/Util.h"
+#include "learning/ParamServer.hpp"
+#include "util/Util.hpp"
 
 cParamServer::tNetEntry::tNetEntry()
 {
@@ -97,10 +97,10 @@ void cParamServer::UpdateInputOffsetScale(int id, const Eigen::VectorXd& offset,
 	int& count = entry.mScaleUpdateCount;
 
 	LockEntry(id);
-	
+
 	Eigen::VectorXd curr_offset = net->GetInputOffset();
 	Eigen::VectorXd curr_scale = net->GetInputScale();
-	
+
 	curr_offset = (count * curr_offset + offset) / (count + 1);
 	curr_scale = (count * curr_scale + scale) / (count + 1);
 	net->SetInputOffsetScale(curr_offset, curr_scale);

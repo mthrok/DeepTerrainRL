@@ -1,8 +1,9 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_ASYNCTRAINER_H_
+#define _DEEP_TERRAIN_RL_ASYNCTRAINER_H_
 
-#include "learning/TrainerInterface.h"
-#include "learning/NeuralNetTrainer.h"
-#include "learning/ParamServer.h"
+#include "learning/TrainerInterface.hpp"
+#include "learning/NeuralNetTrainer.hpp"
+#include "learning/ParamServer.hpp"
 
 class cAsyncTrainer : public cTrainerInterface, public cParamServer
 {
@@ -32,7 +33,7 @@ public:
 
 	virtual void SetInputOffsetScale(const Eigen::VectorXd& offset, const Eigen::VectorXd& scale);
 	virtual void SetOutputOffsetScale(const Eigen::VectorXd& offset, const Eigen::VectorXd& scale);
-	
+
 	virtual void OutputModel(const std::string& filename) const;
 	virtual bool IsDone() const;
 
@@ -44,7 +45,7 @@ protected:
 	virtual int GetNetPoolSize() const;
 	virtual void BuildNetPool();
 	virtual void SetupNet(int id);
-	
+
 	virtual void BuildTrainer(std::shared_ptr<cNeuralNetTrainer>& out_trainer) const;
 	virtual void SetupTrainer(std::shared_ptr<cNeuralNetTrainer>& out_trainer);
 
@@ -57,3 +58,5 @@ protected:
 	virtual void WriteLog(const std::string& log_file) const;
 #endif
 };
+
+#endif

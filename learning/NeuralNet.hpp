@@ -1,5 +1,7 @@
-#pragma once
-#include "util/MathUtil.h"
+#ifndef _DEEP_TERRAIN_RL_LEARNING_NEURALNET_H_
+#define _DEEP_TERRAIN_RL_LEARNING_NEURALNET_H_
+
+#include "util/MathUtil.hpp"
 #include <caffe/net.hpp>
 #include <caffe/caffe.hpp>
 #include <caffe/layers/memory_data_layer.hpp>
@@ -55,7 +57,7 @@ public:
 	virtual void Eval(const Eigen::VectorXd& x, Eigen::VectorXd& out_y) const;
 	virtual void EvalBatch(const Eigen::MatrixXd& X, Eigen::MatrixXd& out_Y) const;
 	virtual void Backward(const Eigen::VectorXd& y_diff, Eigen::VectorXd& out_x_diff) const;
-	
+
 	virtual int GetInputSize() const;
 	virtual int GetOutputSize() const;
 	virtual int GetBatchSize() const;
@@ -113,7 +115,7 @@ protected:
 	std::unique_ptr<cCaffeNetWrapper> mNet;
 	std::shared_ptr<cNNSolver> mSolver;
 	std::string mSolverFile;
-	
+
 	Eigen::VectorXd mInputOffset;
 	Eigen::VectorXd mInputScale;
 	Eigen::VectorXd mOutputOffset;
@@ -138,3 +140,6 @@ protected:
 	virtual const std::string& GetInputLayerName() const;
 	virtual const std::string& GetOutputLayerName() const;
 };
+
+
+#endif

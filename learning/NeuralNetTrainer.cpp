@@ -1,6 +1,6 @@
-#include "NeuralNetTrainer.h"
-#include "util/FileUtil.h"
-#include "util/Util.h"
+#include "learning/NeuralNetTrainer.hpp"
+#include "util/FileUtil.hpp"
+#include "util/Util.hpp"
 
 //#define DISABLE_EXP_REPLAY
 
@@ -460,7 +460,7 @@ void cNeuralNetTrainer::BuildProblemX(int net_id, const std::vector<int>& tuple_
 	int num_data = static_cast<int>(tuple_ids.size());
 	assert(num_data == GetBatchSize());
 	assert(out_prob.mX.rows() == num_data);
-	
+
 	for (int i = 0; i < num_data; ++i)
 	{
 		int t = tuple_ids[i];
@@ -472,7 +472,7 @@ void cNeuralNetTrainer::BuildProblemX(int net_id, const std::vector<int>& tuple_
 	}
 }
 
-void cNeuralNetTrainer::BuildProblemY(int net_id, const std::vector<int>& tuple_ids, 
+void cNeuralNetTrainer::BuildProblemY(int net_id, const std::vector<int>& tuple_ids,
 									const Eigen::MatrixXd& X, cNeuralNet::tProblem& out_prob)
 {
 	int num_data = static_cast<int>(tuple_ids.size());
@@ -604,7 +604,7 @@ void cNeuralNetTrainer::UpdateNet(int net_id, const cNeuralNet::tProblem& prob)
 		server_output.mSyncNet = curr_net.get();
 
 		mParamServer->UpdateNet(server_input, server_output);
-		
+
 #if defined(OUTPUT_TRAINER_LOG)
 		TIMER_RECORD_END(ASYNC_UPDATE_NET, mLog.mAsyncUpdateNetTime, mLog.mAsyncUpdateNetSamples)
 #endif
@@ -687,7 +687,7 @@ tExpTuple cNeuralNetTrainer::GetTuple(int t) const
 	{
 		tuple.mAction(j) = curr_row(action_idx + j);
 	}
-	
+
 	tuple.mFlags = mFlagBuffer[t];
 
 	return tuple;
@@ -752,7 +752,7 @@ void cNeuralNetTrainer::ApplySteps(int num_steps)
 	{
 		OutputIntermediate();
 	}
-	
+
 	bool succ_step = false;
 	for (int i = 0; i < num_steps; ++i)
 	{

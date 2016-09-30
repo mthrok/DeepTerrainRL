@@ -1,7 +1,8 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_LEARNING_MACETRAINER_H_
+#define _DEEP_TERRAIN_RL_LEARNING_MACETRAINER_H_
 
-#include "learning/NeuralNetTrainer.h"
-#include "util/CircularBuffer.h"
+#include "learning/NeuralNetTrainer.hpp"
+#include "util/CircularBuffer.hpp"
 
 #define ENABLE_ACTOR_MULTI_SAMPLE_UPDATE
 
@@ -32,7 +33,7 @@ public:
 
 	cMACETrainer();
 	virtual ~cMACETrainer();
-	
+
 	virtual void Init(const tParams& params);
 	virtual void Reset();
 	virtual int AddTuple(const tExpTuple& tuple);
@@ -53,7 +54,7 @@ protected:
 	std::vector<int> mActorBatchBuffer;
 	std::vector<int> mCriticBuffer;
 	std::vector<int> mActorBuffer;
-	
+
 	Eigen::MatrixXd mBatchXBuffer;
 	Eigen::MatrixXd mBatchYBuffer;
 	Eigen::VectorXd mBatchValBuffer0;
@@ -78,7 +79,7 @@ protected:
 	virtual int GetPoolSize() const;
 	virtual int GetTargetNetID(int net_id) const;
 	virtual int CalcBufferSize() const;
-	
+
 	virtual int GetRewardIdx() const;
 	virtual int GetStateBegIdx() const;
 	virtual int GetStateEndIdx() const;
@@ -89,7 +90,7 @@ protected:
 	virtual double CalcNewCumulativeReward(int net_id, const tExpTuple& tuple);
 	virtual void CalcCurrCumulativeRewardBatch(int net_id, const std::vector<int>& tuple_ids, Eigen::VectorXd& out_vals);
 	virtual void CalcNewCumulativeRewardBatch(int net_id, const std::vector<int>& tuple_ids, Eigen::VectorXd& out_vals);
-	
+
 	virtual void SetTuple(int t, const tExpTuple& tuple);
 	virtual tExpTuple GetTuple(int t) const;
 
@@ -115,3 +116,5 @@ protected:
 	virtual double GetValAux(const Eigen::VectorXd& params, int a_idx);
 	virtual void SetValAux(double val, int a_idx, Eigen::VectorXd& out_params);
 };
+
+#endif

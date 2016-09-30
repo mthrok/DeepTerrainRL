@@ -1,6 +1,7 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_LEARNING_ACTRAINER_H_
+#define _DEEP_TERRAIN_RL_LEARNING_ACTRAINER_H_
 
-#include "learning/NeuralNetTrainer.h"
+#include "learning/NeuralNetTrainer.hpp"
 
 class cACTrainer : public cNeuralNetTrainer
 {
@@ -87,14 +88,14 @@ protected:
 	virtual void BuildActorProblemX(const std::vector<int>& tuple_ids, cNeuralNet::tProblem& out_prob);
 	virtual void BuildActorProblemY(const std::vector<int>& tuple_ids, const Eigen::MatrixXd& X, cNeuralNet::tProblem& out_prob);
 	virtual void BuildActorTupleXNext(const tExpTuple& tuple, Eigen::VectorXd& out_x);
-	
+
 	virtual void FetchActorMinibatch(int batch_size, std::vector<int>& out_batch);
 
 	virtual bool Step();
 	virtual void BuildTupleY(int net_id, const tExpTuple& tuple, Eigen::VectorXd& out_y) = 0;
 	virtual void BuildCriticXNext(const tExpTuple& tuple, Eigen::VectorXd& out_x);
 	virtual void ApplySteps(int num_steps);
-	
+
 	virtual void UpdateMisc(const std::vector<int>& tuple_ids);
 	virtual void UpdateAvgReward(const std::vector<int>& tuple_ids);
 
@@ -135,3 +136,5 @@ protected:
 	virtual void UpdateParamServerCriticInputOffsetScale(const Eigen::VectorXd& offset, const Eigen::VectorXd& scale);
 	virtual void UpdateParamServerActorInputOffsetScale(const Eigen::VectorXd& offset, const Eigen::VectorXd& scale);
 };
+
+#endif

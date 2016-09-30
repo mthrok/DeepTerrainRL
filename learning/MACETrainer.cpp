@@ -1,7 +1,7 @@
-#include "MACETrainer.h"
-#include "util/FileUtil.h"
-#include "util/Util.h"
-#include "QNetTrainer.h"
+#include "learning/MACETrainer.hpp"
+#include "util/FileUtil.hpp"
+#include "util/Util.hpp"
+#include "QNetTrainer.hpp"
 
 //#define DISABLE_CRITIC_BUFFER
 //#define DISABLE_ACTOR_BUFFER
@@ -700,11 +700,11 @@ void cMACETrainer::UpdateActorNet(const cNeuralNet::tProblem& prob)
 		server_output.mSyncNet = curr_net.get();
 
 		mParamServer->UpdateNet(server_input, server_output);
-		
+
 #if defined(OUTPUT_TRAINER_LOG)
 		TIMER_RECORD_END(ASYNC_UPDATE_NET, mLog.mAsyncUpdateNetTime, mLog.mAsyncUpdateNetSamples)
 #endif
-		
+
 		++mActorIter;
 	}
 	else

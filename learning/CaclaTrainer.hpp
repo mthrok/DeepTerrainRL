@@ -1,6 +1,7 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_LEARNING_CACLATRAINER_H_
+#define _DEEP_TERRAIN_RL_LEARNING_CACLATRAINER_H_
 
-#include "learning/ACTrainer.h"
+#include "learning/ACTrainer.hpp"
 
 class cCaclaTrainer : public cACTrainer
 {
@@ -30,9 +31,9 @@ public:
 
 	virtual void SetTDScale(double scale);
 	virtual void SetActionBounds(const Eigen::VectorXd& action_min, const Eigen::VectorXd& action_max);
-	
+
 protected:
-	
+
 	eMode mMode;
 	std::vector<int> mOffPolicyBuffer;
 
@@ -57,7 +58,7 @@ protected:
 	virtual bool Step();
 	virtual void BuildProblemY(int net_id, const std::vector<int>& tuple_ids, const Eigen::MatrixXd& X, cNeuralNet::tProblem& out_prob);
 	virtual void BuildTupleY(int net_id, const tExpTuple& tuple, Eigen::VectorXd& out_y);
-	
+
 	virtual int GetTargetNetID(int net_id) const;
 	virtual const std::unique_ptr<cNeuralNet>& GetCriticTarget() const;
 
@@ -65,11 +66,11 @@ protected:
 	virtual double CalcNewCumulativeReward(const tExpTuple& tuple, const std::unique_ptr<cNeuralNet>& net);
 	virtual void CalcCurrCumulativeRewardBatch(int net_id, const std::vector<int>& tuple_ids, Eigen::VectorXd& out_vals);
 	virtual void CalcNewCumulativeRewardBatch(int net_id, const std::vector<int>& tuple_ids, Eigen::VectorXd& out_vals);
-	
+
 	virtual void BuildActorProblemY(const std::vector<int>& tuple_ids, const Eigen::MatrixXd& X, cNeuralNet::tProblem& out_prob);
 	virtual void BuildActorProblemYCacla(const std::vector<int>& tuple_ids, const Eigen::MatrixXd& X, cNeuralNet::tProblem& out_prob);
 	virtual void BuildActorProblemYTD(const std::vector<int>& tuple_ids, const Eigen::MatrixXd& X, cNeuralNet::tProblem& out_prob);
-	
+
 	virtual int GetPoolSize() const;
 	virtual void UpdateActorBatchBuffer();
 	virtual void UpdateActorBatchBufferPostStep(int batch_size);
@@ -83,3 +84,5 @@ protected:
 
 	virtual void ProcessPoliGrad(const Eigen::VectorXd& action, Eigen::VectorXd& out_diff) const;
 };
+
+#endif

@@ -1,12 +1,12 @@
-#include "NeuralNet.h"
+#include "learning/NeuralNet.hpp"
 #include <caffe/util/hdf5.hpp>
 #include <json/json.h>
 
-#include "util/Util.h"
-#include "util/FileUtil.h"
-#include "util/JsonUtil.h"
-#include "NNSolver.h"
-#include "AsyncSolver.h"
+#include "util/Util.hpp"
+#include "util/FileUtil.hpp"
+#include "util/JsonUtil.hpp"
+#include "learning/NNSolver.hpp"
+#include "learning/AsyncSolver.hpp"
 
 const std::string gInputOffsetKey = "InputOffset";
 const std::string gInputScaleKey = "InputScale";
@@ -234,7 +234,7 @@ void cNeuralNet::Train(const tProblem& prob)
 
 		int batch_size = GetBatchSize();
 		int num_batches = static_cast<int>(prob.mX.rows()) / batch_size;
-		
+
 		StepSolver(prob.mPassesPerStep * num_batches);
 	}
 	else
@@ -357,7 +357,7 @@ void cNeuralNet::Eval(const Eigen::VectorXd& x, Eigen::VectorXd& out_y) const
 
 	caffe::Blob<tNNData> blob(1, 1, 1, input_size);
 	tNNData* blob_data = blob.mutable_cpu_data();
-	
+
 	Eigen::VectorXd norm_x = x;
 	NormalizeInput(norm_x);
 
@@ -420,7 +420,7 @@ void cNeuralNet::Backward(const Eigen::VectorXd& y_diff, Eigen::VectorXd& out_x_
 	{
 		out_x_diff[i] = bottom_data[i];
 	}
-	
+
 	NormalizeInputDiff(out_x_diff);
 }
 
@@ -458,7 +458,7 @@ void cNeuralNet::EvalBatchSolver(const Eigen::MatrixXd& X, Eigen::MatrixXd& out_
 	std::vector<tNNData> data(batch_size * input_size);
 
 	auto data_layer = boost::static_pointer_cast<caffe::MemoryDataLayer<tNNData>>(net->layer_by_name(GetInputLayerName()));
-	
+
 	for (int b = 0; b < num_batches; ++b)
 	{
 		for (int i = 0; i < batch_size; ++i)
@@ -481,6 +481,7 @@ void cNeuralNet::EvalBatchSolver(const Eigen::MatrixXd& X, Eigen::MatrixXd& out_
 				data[i * input_size + j] = val;
 			}
 		}
+
 		data_layer->AddData(data);
 
 		tNNData loss = 0;
@@ -888,7 +889,7 @@ void cNeuralNet::CopyGrad(const cNeuralNet& other)
 	assert(other.HasSolver());
 	auto other_net = other.GetTrainNet();
 	auto this_net = GetTrainNet();
-	
+
 	auto other_params = other_net->learnable_params();
 	auto this_params = this_net->learnable_params();
 	assert(other_params.size() == this_params.size());
@@ -1150,8 +1151,8 @@ bool cNeuralNet::WriteData(const Eigen::MatrixXd& X, const Eigen::MatrixXd& Y, c
 	}
 
 	const int rank = 4;
-	const hsize_t x_dims[rank] = { num_data, 1, 1, x_size };
-	const hsize_t y_dims[rank] = { num_data, 1, 1, y_size };
+	const hsize_t x_dims[rank] = { static_cast<hsize_t>(num_data), 1, 1, static_cast<hsize_t>(x_size) };
+	const hsize_t y_dims[rank] = { static_cast<hsize_t>(num_data), 1, 1, static_cast<hsize_t>(y_size) };
 
 	hid_t file_hid = H5Fcreate(out_file.c_str(), H5F_ACC_TRUNC, H5P_DEFAULT,
 								H5P_DEFAULT);
@@ -1190,7 +1191,7 @@ void cNeuralNet::WriteOffsetScale(const std::string& norm_file) const
 		std::string output_offset_json = cJsonUtil::BuildVectorJson(mOutputOffset);
 		std::string output_scale_json = cJsonUtil::BuildVectorJson(mOutputScale);
 
-		fprintf(f, "{\n\"%s\": %s,\n\"%s\": %s,\n\"%s\": %s,\n\"%s\": %s\n}", 
+		fprintf(f, "{\n\"%s\": %s,\n\"%s\": %s,\n\"%s\": %s,\n\"%s\": %s\n}",
 			gInputOffsetKey.c_str(), input_offset_json.c_str(),
 			gInputScaleKey.c_str(), input_scale_json.c_str(),
 			gOutputOffsetKey.c_str(), output_offset_json.c_str(),

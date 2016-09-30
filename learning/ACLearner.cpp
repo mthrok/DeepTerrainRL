@@ -1,5 +1,5 @@
-#include "ACLearner.h"
-#include "ACTrainer.h"
+#include "learning/ACLearner.hpp"
+#include "learning/ACTrainer.hpp"
 
 cACLearner::cACLearner(const std::shared_ptr<cNeuralNetTrainer>& trainer)
 	: cNeuralNetLearner(trainer)

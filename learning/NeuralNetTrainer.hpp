@@ -1,13 +1,15 @@
-#pragma once
+#ifndef _DEEP_TERRAIN_RL_LEARNING_NEURALNETTRAINER_H_
+#define _DEEP_TERRAIN_RL_LEARNING_NEURALNETTRAINER_H_
+
 #include <memory>
 #include <mutex>
-#include "learning/TrainerInterface.h"
-#include "learning/ExpTuple.h"
-#include "learning/NeuralNet.h"
-#include "learning/NeuralNetLearner.h"
-#include "learning/ParamServer.h"
+#include "learning/TrainerInterface.hpp"
+#include "learning/ExpTuple.hpp"
+#include "learning/NeuralNet.hpp"
+#include "learning/NeuralNetLearner.hpp"
+#include "learning/ParamServer.hpp"
 
-class cNeuralNetTrainer : public cTrainerInterface, 
+class cNeuralNetTrainer : public cTrainerInterface,
 						public std::enable_shared_from_this<cNeuralNetTrainer>
 {
 public:
@@ -19,7 +21,7 @@ public:
 	};
 
 	static double CalcDiscountNorm(double discount);
-	
+
 	cNeuralNetTrainer();
 	virtual ~cNeuralNetTrainer();
 
@@ -103,7 +105,7 @@ protected:
 	virtual void InitProblem(cNeuralNet::tProblem& out_prob) const;
 	virtual int GetPlaybackMemSize() const;
 	virtual void ResetParams();
-	
+
 	virtual void Pretrain();
 	virtual bool Step();
 	virtual bool BuildProblem(int net_id, cNeuralNet::tProblem& out_prob);
@@ -201,3 +203,5 @@ protected:
 	void WriteLog(const std::string& log_file) const;
 #endif // OUTPUT_TRAINER_LOG
 };
+
+#endif

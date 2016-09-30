@@ -1,7 +1,7 @@
 #include "sim/SpAlg.hpp"
 #include <iostream>
 
-#ifdef _LINUX_
+#if (defined(_LINUX_) || defined(__APPLE__))
 	// Should initilize variables in cpp
 	const int cSpAlg::gSpVecSize;
 	const int cSpAlg::gSVTransRows;

@@ -38,14 +38,15 @@ SET(JSON_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/external/jsoncpp/include")
 SET(JSON_LIBRARY_PATH "${PROJECT_SOURCE_DIR}/external/jsoncpp/build/release/src/lib_json/libjsoncpp.a")
 
 # Caffe
-SET(CAFFE_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/external/caffe/src"
-		      "${PROJECT_SOURCE_DIR}/external/caffe/include"
-		      "${PROJECT_SOURCE_DIR}/external/caffe/build/src")
-SET(CAFFE_LIBRARY_PATH "${PROJECT_SOURCE_DIR}/external/caffe/build/lib/libcaffe.so")
+SET(CAFFE_ROOT "${PROJECT_SOURCE_DIR}/external/caffe")
+SET(CAFFE_INCLUDE_DIR  "${CAFFE_ROOT}/src"
+		       "${CAFFE_ROOT}/include"
+		       "${CAFFE_ROOT}/build/src")
+SET(CAFFE_LIBRARY_PATH "${CAFFE_ROOT}/build/lib/libcaffe.so")
 
 # Bullet
 SET(BULLET_ROOT "${PROJECT_SOURCE_DIR}/external/Bullet")
-SET(BULLET_INCLUDE_DIR "${BULLET_ROOT}/src")
+SET(BULLET_INCLUDE_DIR  "${BULLET_ROOT}/src")
 SET(BULLET_LIBRARY_PATH "${BULLET_ROOT}/build/src/LinearMath/libLinearMath.a"
 			"${BULLET_ROOT}/build/src/BulletDynamics/libBulletDynamics.a"
 			"${BULLET_ROOT}/build/src/BulletCollision/libBulletCollision.a")
@@ -57,49 +58,50 @@ SET(DEPENDENCIES ${HDF5_C_LIBRARIES} ${Boost_LIBRARIES} ${JSON_LIBRARY_PATH} ${B
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-
+# Source dir
+SET(SOURCE_DIR ${PROJECT_SOURCE_DIR}/src)
 ################################################################################
-include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${SOURCE_DIR})
 include_directories(${JSON_INCLUDE_DIR})
 
 # Util module
-AUX_SOURCE_DIRECTORY(util UTIL_SOURCES)
+AUX_SOURCE_DIRECTORY(${SOURCE_DIR}/util UTIL_SOURCES)
 add_library(Util ${UTIL_SOURCES})
 
 ################################################################################
 include_directories(${BULLET_INCLUDE_DIR} ${CAFFE_INCLUDE_DIR})
 
 # Anim Module
-AUX_SOURCE_DIRECTORY(anim ANIM_SOURCES)
+AUX_SOURCE_DIRECTORY(${SOURCE_DIR}/anim ANIM_SOURCES)
 add_library(Anim ${ANIM_SOURCES})
 
 # Learning Module
-AUX_SOURCE_DIRECTORY(learning LEARNING_SOURCES)
+AUX_SOURCE_DIRECTORY(${SOURCE_DIR}/learning LEARNING_SOURCES)
 add_library(Learning ${LEARNING_SOURCES})
 
 # Sim Module
-AUX_SOURCE_DIRECTORY(sim SIM_SOURCES)
+AUX_SOURCE_DIRECTORY(${SOURCE_DIR}/sim SIM_SOURCES)
 add_library(Sim ${SIM_SOURCES})
 
 # Render Module
-AUX_SOURCE_DIRECTORY(render RENDER_SOURCES)
+AUX_SOURCE_DIRECTORY(${SOURCE_DIR}/render RENDER_SOURCES)
 add_library(Render ${RENDER_SOURCES})
 
 ################################################################################
 # Scenario Module
-AUX_SOURCE_DIRECTORY(scenarios SCENARIO_SOURCES)
+AUX_SOURCE_DIRECTORY(${SOURCE_DIR}/scenarios SCENARIO_SOURCES)
 add_library(Scenario ${SCENARIO_SOURCES})
 
 ################################################################################
 # Build Optimizer
-AUX_SOURCE_DIRECTORY(optimizer/scenarios OPT_SCENARIO_SOURCES)
+AUX_SOURCE_DIRECTORY(${SOURCE_DIR}/optimizer/scenarios OPT_SCENARIO_SOURCES)
 add_library(OptScenario ${OPT_SCENARIO_SOURCES})
 
 
-add_executable(Optimizer optimizer/Main.cpp)
+add_executable(Optimizer ${SOURCE_DIR}/optimizer/Main.cpp)
 target_link_libraries(Optimizer ${DEPENDENCIES} Util Scenario Sim Learning Render Anim OptScenario)
 
 ################################################################################
 # Build Visualizer
-add_executable(Visualizer Main.cpp)
+add_executable(Visualizer ${SOURCE_DIR}/Main.cpp)
 target_link_libraries(Visualizer ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${DEPENDENCIES} ${GLUT_LIBRARY} Util Scenario Sim Learning Render Anim OptScenario)

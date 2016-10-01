@@ -4,7 +4,7 @@
 #include "scenarios/ScenarioTrain.hpp"
 #include "scenarios/ScenarioTrainCacla.hpp"
 #include "scenarios/ScenarioTrainMACE.hpp"
-#include "scenarios/OptScenarioPoliEval.hpp"
+#include "optimizer/scenarios/OptScenarioPoliEval.hpp"
 #include "util/ArgParser.hpp"
 
 // arg parser

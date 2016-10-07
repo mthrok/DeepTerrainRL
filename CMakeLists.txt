@@ -15,7 +15,7 @@ include_directories(${GLEW_INCLUDE_DIR})
 find_package(GLUT REQUIRED)
 
 # GLOG
-find_package(GLOG REQUIRED)
+find_package(Glog REQUIRED)
 
 # Boost
 find_package(Boost COMPONENTS system REQUIRED)

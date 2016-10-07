@@ -1,15 +1,15 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.0.2)
 
 project (DeepTerrainRL)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+# Additional module finders
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/module")
 
 #OpenGL
 find_package(OpenGL REQUIRED)
 
 # GLEW
 find_package(GLEW REQUIRED)
-include_directories(${GLEW_INCLUDE_DIR})
 
 # GLUT
 find_package(GLUT REQUIRED)
@@ -25,7 +25,6 @@ find_package(HDF5 REQUIRED)
 
 # Eigen 3
 find_package(Eigen3 REQUIRED)
-include_directories(${EIGEN3_INCLUDE_DIR})
 
 # CBLAS or vecLib
 if(APPLE)
@@ -33,49 +32,82 @@ if(APPLE)
   include_directories(${vecLib_INCLUDE_DIR})
 endif()
 
-# JSONCPP
-SET(JSON_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/external/jsoncpp/include")
-SET(JSON_LIBRARY_PATH "${PROJECT_SOURCE_DIR}/external/jsoncpp/build/release/src/lib_json/libjsoncpp.a")
+# Include function to build dependency at configuration time
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/cmake/builder")
+
+# Build Bullet Phyisics
+SET(BULLET_ROOT "${CMAKE_SOURCE_DIR}/external/bullet")
+BUILD_EXTERNAL_PROJECT(
+  bullet
+  "${BULLET_ROOT}"
+  "https://github.com/bulletphysics/bullet3"
+  -DBUILD_BULLET2_DEMOS:BOOL=OFF
+  -DUSE_DX11:BOOL=OFF
+  -DUSE_GLUT:BOOL=OFF
+  -DUSE_GRAPHICAL_BENCHMARK:BOOL=OFF
+  -DBUILD_EXTRAS:BOOL=OFF
+  -DBUILD_UNIT_TESTS:BOOL=OFF
+  -DUSE_MSVC_RUNTIME_LIBRARY_DLL:BOOL=ON
+  #-DBUILD_SHARED_LIBS:BOOL=OFF  # this is broken in Visual Studio
+  # Add -fPIC on Linux so we can actually link into a shared lib later
+  "-DCMAKE_CXX_FLAGS=${CMAKE_SHARED_LIBRARY_CXX_FLAGS}"
+  "-DCMAKE_C_FLAGS=${CMAKE_SHARED_LIBRARY_C_FLAGS}"
+  -DINSTALL_LIBS:BOOL=ON
+  -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
+  #-DPKGCONFIG_INSTALL_PREFIX:PATH=${CMAKE_INSTALL_PREFIX}
+  #-DINCLUDE_INSTALL_DIR:PATH=${CMAKE_INSTALL_PREFIX}/include/
+  #-DLIB_DESTINATION:PATH=${CMAKE_INSTALL_PREFIX}/lib/
+  )
+find_package(Bullet REQUIRED)
+
+# Build JsonCPP
+SET(JSONCPP_ROOT "${CMAKE_SOURCE_DIR}/external/jsoncpp")
+BUILD_EXTERNAL_PROJECT(
+  jsoncpp
+  "${JSONCPP_ROOT}"
+  "https://github.com/open-source-parsers/jsoncpp"
+  -DCMAKE_BUILD_TYPE=release
+  -DBUILD_STATIC_LIBS=ON
+  -DBUILD_SHARED_LIBS=OFF
+  )
+find_package(Jsoncpp REQUIRED)
+
 
 # Caffe
-SET(CAFFE_ROOT "${PROJECT_SOURCE_DIR}/external/caffe")
-SET(CAFFE_INCLUDE_DIR  "${CAFFE_ROOT}/src"
-		       "${CAFFE_ROOT}/include"
-		       "${CAFFE_ROOT}/build/src")
-SET(CAFFE_LIBRARY_PATH "${CAFFE_ROOT}/build/lib/libcaffe.so")
+SET(CAFFE_DIR "${PROJECT_SOURCE_DIR}/external/caffe")
+BUILD_EXTERNAL_PROJECT(
+  caffe
+  "${CAFFE_DIR}"
+  "https://github.com/BVLC/caffe"
+  -DCPU_ONLY:BOOL=ON
+  )
+SET(Caffe_DIR "${PROJECT_SOURCE_DIR}/external/caffe/src/caffe-build/install/")
+find_package(Caffe REQUIRED)
 
-# Bullet
-SET(BULLET_ROOT "${PROJECT_SOURCE_DIR}/external/Bullet")
-SET(BULLET_INCLUDE_DIR  "${BULLET_ROOT}/src")
-SET(BULLET_LIBRARY_PATH "${BULLET_ROOT}/build/src/LinearMath/libLinearMath.a"
-			"${BULLET_ROOT}/build/src/BulletDynamics/libBulletDynamics.a"
-			"${BULLET_ROOT}/build/src/BulletCollision/libBulletCollision.a")
+# Source dir
+SET(SOURCE_DIR ${PROJECT_SOURCE_DIR}/src)
+
+# Include
+include_directories(${GLEW_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIR} ${SOURCE_DIR} ${JSONCPP_INCLUDE_DIRS} ${BULLET_INCLUDE_DIR} ${Caffe_INCLUDE_DIR})
 
 # Libraries
-SET(DEPENDENCIES ${HDF5_C_LIBRARIES} ${Boost_LIBRARIES} ${JSON_LIBRARY_PATH} ${BULLET_LIBRARY_PATH} ${CAFFE_LIBRARY_PATH} ${GLOG_LIBRARIES})
+SET(DEPENDENCIES ${HDF5_C_LIBRARIES} ${Boost_LIBRARIES} ${JSONCPP_LIBRARIES} ${BULLET_LIBRARIES} ${Caffe_LIBS} ${GLOG_LIBRARIES})
 
 # Enable C++11
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Source dir
-SET(SOURCE_DIR ${PROJECT_SOURCE_DIR}/src)
 ################################################################################
-include_directories(${SOURCE_DIR})
-include_directories(${JSON_INCLUDE_DIR})
-
 # Util module
 AUX_SOURCE_DIRECTORY(${SOURCE_DIR}/util UTIL_SOURCES)
 add_library(Util ${UTIL_SOURCES})
-
-################################################################################
-include_directories(${BULLET_INCLUDE_DIR} ${CAFFE_INCLUDE_DIR})
 
 # Anim Module
 AUX_SOURCE_DIRECTORY(${SOURCE_DIR}/anim ANIM_SOURCES)
 add_library(Anim ${ANIM_SOURCES})
 
 # Learning Module
+add_definitions(-DCPU_ONLY)
 AUX_SOURCE_DIRECTORY(${SOURCE_DIR}/learning LEARNING_SOURCES)
 add_library(Learning ${LEARNING_SOURCES})
 
@@ -87,7 +119,6 @@ add_library(Sim ${SIM_SOURCES})
 AUX_SOURCE_DIRECTORY(${SOURCE_DIR}/render RENDER_SOURCES)
 add_library(Render ${RENDER_SOURCES})
 
-################################################################################
 # Scenario Module
 AUX_SOURCE_DIRECTORY(${SOURCE_DIR}/scenarios SCENARIO_SOURCES)
 add_library(Scenario ${SCENARIO_SOURCES})
